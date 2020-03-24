@@ -3,7 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
+             xmlns:local="clr-namespace:FlightSimulatorApp.Views"
+             xmlns:i="interac"
+             mc:Ignorable="d"
+             x:Name="JoystickControl"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Canvas  x:Name="Base" Margin="0" Width="340" Height="340">
@@ -47,7 +50,8 @@
                 </Path.RenderTransform>
             </Path>
 
-            <Canvas  x:Name="Knob" VerticalAlignment="Top" HorizontalAlignment="Left" Width="0" Height="0" RenderTransformOrigin="0.5,0.5" Canvas.Left="125" Canvas.Top="125">
+            <Canvas  x:Name="Knob" VerticalAlignment="Top" HorizontalAlignment="Left" Width="0" Height="0" RenderTransformOrigin="0.5,0.5" 
+                     >
                 <!--<Ellipse x:Name="Shadow" HorizontalAlignment="Left" Height="88" VerticalAlignment="Top" Width="86" Fill="#52131212" Canvas.Left="22" Canvas.Top="18" />-->
                 <Ellipse x:Name="KnobBase" HorizontalAlignment="Left" Height="90" VerticalAlignment="Top" Width="90" RenderTransformOrigin="0.5,0.5" Canvas.Top="1">
                     <Ellipse.Fill>
@@ -117,15 +121,14 @@
                 </Canvas.RenderTransform>
                 <Canvas.Resources>
 
-                    <Storyboard x:Key="CenterKnob" Name="centerKnob" Completed="centerKnob_Completed">
-
+                    <Storyboard x:Key="CenterKnob" Name="centerKnob" Completed="CenterKnob_Completed">
                         <DoubleAnimation Storyboard.TargetName="knobPosition"
-                             Storyboard.TargetProperty="X" To="0" Duration="0:0:0.2">
+                             Storyboard.TargetProperty="X" To="125" Duration="0:0:0.2">
                             <DoubleAnimation.EasingFunction>
                                 <BackEase EasingMode="EaseInOut" />
                             </DoubleAnimation.EasingFunction>
                         </DoubleAnimation>
-                        <DoubleAnimation Storyboard.TargetName="knobPosition" Storyboard.TargetProperty="Y" To="0" Duration="0:0:0.2">
+                        <DoubleAnimation Storyboard.TargetName="knobPosition" Storyboard.TargetProperty="Y" To="125" Duration="0:0:0.2">
                             <DoubleAnimation.EasingFunction>
                                 <BackEase EasingMode="EaseInOut" />
                             </DoubleAnimation.EasingFunction>
@@ -136,4 +139,3 @@
         </Canvas>
     </Grid>
 </UserControl>
-
