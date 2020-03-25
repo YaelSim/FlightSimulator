@@ -5,7 +5,18 @@
     xmlns:local="clr-namespace:FlightSimulatorApp.Views"
     Width="1024" Height="768">
     <Grid x:Name="LayoutRoot" Background="White">
-        <m:Map x:Name="MapComponent" CredentialsProvider="iQ6P9CGruXJuhLcv7Tt8~9w2A7mzg2SgfxshTDszxYg~AnJCRfLz3G6jq1EDmMrs0XSw3L_tjLf2LN7Uw6Xhm7h9seLvJIfvKSK6uJAM74Ik" Mode="AerialWithLabels" Center="37.806029,-122.407007" ZoomLevel="12" 
-               Grid.Row="1"/>
+        <m:Map x:Name="MapComp"
+               CredentialsProvider="iQ6P9CGruXJuhLcv7Tt8~9w2A7mzg2SgfxshTDszxYg~AnJCRfLz3G6jq1EDmMrs0XSw3L_tjLf2LN7Uw6Xhm7h9seLvJIfvKSK6uJAM74Ik"
+               Mode="AerialWithLabels" Center="47.620574,-122.34942" ZoomLevel="12">
+            <Canvas Width="65" Height="65"
+              m:MapLayer.Position="47.620574,-122.34942" 
+              m:MapLayer.PositionOrigin="BottomCenter" Opacity="1">
+                <Image Width="60">
+                    <Image.Source>
+                        <BitmapImage DecodePixelWidth="300" UriSource="/Views/planeicon.png" />
+                    </Image.Source>
+                </Image>
+            </Canvas>
+        </m:Map>
     </Grid>
 </UserControl>

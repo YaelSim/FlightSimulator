@@ -16,6 +16,7 @@
             <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Margin="5" />
             <TextBlock Margin="5" Text="{Binding Name}"></TextBlock>
             <Views:Joystick X="125" Y="125"></Views:Joystick>
+            <Views:MapComponent 
         </StackPanel>
     </Grid>
 </Window>

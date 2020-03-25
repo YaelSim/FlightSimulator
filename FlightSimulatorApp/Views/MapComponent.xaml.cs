@@ -22,5 +22,7 @@ namespace FlightSimulatorApp.Views
         {
             InitializeComponent();
         }
+
+        ///public double xCoordinate
     }
 }
