@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlightSimulatorApp.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,15 @@ namespace FlightSimulatorApp
         public MainWindow()
         {
             InitializeComponent();
+        }
+        public static int Main(String[] args)
+        {
+            ITelnet tc = new TelnetClient();
+            tc.connect("127.0.0.1", 5402);
+            tc.write("Hello world");
+            tc.read();
+            tc.disconnect();
+            return 0;
         }
     }
 }
