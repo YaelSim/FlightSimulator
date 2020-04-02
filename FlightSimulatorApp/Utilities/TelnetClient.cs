@@ -46,7 +46,6 @@ namespace FlightSimulatorApp.Utilities
                 Console.WriteLine(e.ToString());
             }
         }
-
         public void disconnect()
         {
             try
@@ -68,7 +67,6 @@ namespace FlightSimulatorApp.Utilities
                 Console.WriteLine("Unexpected exception : {0}", e.ToString());
             }
         }
-
         public string read()
         {
             try
@@ -103,7 +101,8 @@ namespace FlightSimulatorApp.Utilities
             try
             {
                 // Encode the data string into a byte array.  
-                byte[] messageBytesArr = Encoding.ASCII.GetBytes(commandStr + "<EOF>");
+                //byte[] messageBytesArr = Encoding.ASCII.GetBytes(commandStr + "<EOF>");
+                byte[] messageBytesArr = Encoding.ASCII.GetBytes(commandStr + "\n");
 
                 // Send the data through the socket.  
                 int bytesSent = this.sender.Send(messageBytesArr);

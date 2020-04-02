@@ -22,7 +22,16 @@ namespace FlightSimulatorApp.Model
         double internalPitch { get; set; }
         double altimeter { get; set; }
 
-        // activate actuators
-        //??????????
+        //Activate actuators
+        double rudder { get; set; }
+        double elevator { get; set; }
+        double aileron { get; set; }
+        double throttle { get; set; }
+
+        //Map's properties
+        double longitude { get; set; }
+        double latitude { get; set; }
+
+        //DONT FORGET TO ADD LOCATION!!!!!!!!!!!***************
     }
 }
