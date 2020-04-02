@@ -73,14 +73,12 @@ namespace FlightSimulatorApp.Views
             X = Convert.ToDouble(GetValue(XProperty));
             Y = Convert.ToDouble(GetValue(YProperty));
         }
-
         private void moveKnobToCenter()
         {
             centerOfKnob.Begin();
             X = centerPoint.X;
             Y = centerPoint.Y;
         }
-
         private void Base_MouseUp(object sender, MouseButtonEventArgs e)
         {
             isMousePressed = false;
@@ -97,7 +95,6 @@ namespace FlightSimulatorApp.Views
             startOfY = KnobBase.Height / 2 - mousePositionRelativeToKnob.Y;
             Knob.CaptureMouse();
         }
-
         private void Base_MouseMove(object sender, MouseEventArgs e)
         {
             /// If mousePressed, move the Joystick's knob!
@@ -128,7 +125,6 @@ namespace FlightSimulatorApp.Views
                 }
             }
         }
-
         private void CenterKnob_Completed(object sender, EventArgs e)
         {
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using Microsoft.Maps.MapControl.WPF;
 
 namespace FlightSimulatorApp.Model
 {
@@ -31,7 +32,6 @@ namespace FlightSimulatorApp.Model
         //Map's properties
         double longitude { get; set; }
         double latitude { get; set; }
-
-        //DONT FORGET TO ADD LOCATION!!!!!!!!!!!***************
+        Location location { get; set; }
     }
 }

@@ -23,9 +23,14 @@ namespace FlightSimulatorApp
     {
         public MainWindow()
         {
+            ITelnet tc = new TelnetClient();
+            tc.connect("127.0.0.1", 5402);
+            tc.write("Hello world");
+            Console.WriteLine(tc.read());
+            tc.disconnect();
             InitializeComponent();
         }
-        public static int Main(String[] args)
+        /*public static int Main(string[] args)
         {
             ITelnet tc = new TelnetClient();
             tc.connect("127.0.0.1", 5402);
@@ -33,6 +38,6 @@ namespace FlightSimulatorApp
             tc.read();
             tc.disconnect();
             return 0;
-        }
+        }*/
     }
 }

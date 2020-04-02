@@ -1,22 +1,26 @@
 ﻿<UserControl x:Class="FlightSimulatorApp.Views.MapComponent"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    mc:Ignorable="d" 
     xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
     xmlns:local="clr-namespace:FlightSimulatorApp.Views">
     <Grid x:Name="LayoutRoot" Background="White">
         <m:Map x:Name="MapComp"
                CredentialsProvider="iQ6P9CGruXJuhLcv7Tt8~9w2A7mzg2SgfxshTDszxYg~AnJCRfLz3G6jq1EDmMrs0XSw3L_tjLf2LN7Uw6Xhm7h9seLvJIfvKSK6uJAM74Ik"
                Mode="AerialWithLabels" Center="47.620574,-122.34942" ZoomLevel="12" Height="785" Width="650">
-            <Canvas Width="65" Height="65"
+            <!--<Canvas Width="65" Height="65"
               m:MapLayer.Position="47.620574,-122.34942" 
               m:MapLayer.PositionOrigin="BottomCenter" Opacity="1">
                 <Image Width="60">
-                    <!--<m:Pushpin m:MapLayer.Position="{Binding Location}"/>-->
+                    <m:Pushpin m:MapLayer.Position="{Binding Location}"/>
                     <Image.Source>
                         <BitmapImage DecodePixelWidth="300" UriSource="/Views/planeicon.png" />
                     </Image.Source>
                 </Image>
-            </Canvas>
+            </Canvas>-->
         </m:Map>
+        <m:Pushpin Location="{Binding Path=vm_location, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"></m:Pushpin>
     </Grid>
 </UserControl>

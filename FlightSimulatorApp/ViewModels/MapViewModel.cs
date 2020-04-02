@@ -4,28 +4,56 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using FlightSimulatorApp.Model;
+using FlightSimulatorApp.Utilities;
 using Microsoft.Maps.MapControl.WPF;
 
 namespace FlightSimulatorApp.ViewModels
 {
-    public class MapViewModel : INotifyPropertyChanged
+    public partial class MapViewModel : INotifyPropertyChanged
     {
+        private ISimulatorModel model;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private Location location;
-        public Location Location
+        public MapViewModel()
         {
-            get { return location; }
-            set
+            this.model = new MySimulatorModel(new TelnetClient());
+            this.model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e) {
+                NotifyPropertyChanged("VM_" + e.PropertyName);
+            };
+        }
+        public void NotifyPropertyChanged(string propertyName)
+        {
+            if (this.PropertyChanged != null)
             {
-                location = value;
-                OnPropertyChanged();
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
 
-        protected void OnPropertyChanged([CallerMemberName] string Location = null)
+        [Obsolete]
+        public Location VM_location
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(Location));
+            get
+            {
+                Console.WriteLine("location" + model.latitude + "," + model.longitude);
+                return this.model.location;
+            }
+        }
+
+        public double VM_longitude
+        {
+            get
+            {
+                return this.model.longitude;
+            }
+        }
+
+        public double VM_latitude
+        {
+            get
+            {
+                return this.model.latitude;
+            }
         }
     }
 }

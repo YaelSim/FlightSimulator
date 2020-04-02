@@ -1,4 +1,5 @@
 ﻿using FlightSimulatorApp.Utilities;
+using Microsoft.Maps.MapControl.WPF;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +10,8 @@ namespace FlightSimulatorApp.Model
 {
     class MySimulatorModel : ISimulatorModel
     {
+        // DON'T FORGET TO SEND MESSAGES TO THE SIMULATOR --- COMMAND DP!!!!!!!!!! ****************************
+        // need to save all of the commands to the simulator in a list/ array / vector of strings. *********************
         private ITelnet telnetClient;
         private volatile bool stop;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -29,9 +32,10 @@ namespace FlightSimulatorApp.Model
         private double dm_aileron = 0;
         private double dm_throttle = 0;
 
-        private double dm_latitude;
-        private double dm_longitude;
-
+        //Map's properties as data members
+        private double dm_latitude = 0;
+        private double dm_longitude = 0;
+        private Location dm_location = new Location(0, 0);
         public MySimulatorModel(ITelnet tc)
         {
             this.telnetClient = tc;
@@ -118,8 +122,7 @@ namespace FlightSimulatorApp.Model
                     value = 1;
                 }
                 this.dm_rudder = value;
-                //ADD ----- NOTIFYPROPERTYCHANGED("RUDDER") TO ALL OF THE PROPERTIES
-                // DON'T FORGET TO SEND MESSAGES TO THE SIMULATOR --- COMMAND DP!!!!!!!!!! ****************************
+                NotifyPropertyChanged("rudder");
             }
         }
         public double elevator {
@@ -135,6 +138,7 @@ namespace FlightSimulatorApp.Model
                     value = 1;
                 }
                 this.dm_elevator = value;
+                NotifyPropertyChanged("elevator");
             }
         }
         public double aileron {
@@ -150,6 +154,7 @@ namespace FlightSimulatorApp.Model
                     value = 1;
                 }
                 this.dm_aileron = value;
+                NotifyPropertyChanged("aileron");
             }
         }
         public double throttle {
@@ -165,15 +170,18 @@ namespace FlightSimulatorApp.Model
                     value = 1;
                 }
                 this.dm_throttle = value;
+                NotifyPropertyChanged("throttle");
             }
         }
 
-        //Determine the plane's location over the Bing map
+        //Map's properties - Determine the plane's location over the Bing map
+        //VERIFY if we did it correct *******************************
         public double longitude
         { get { return this.dm_longitude; }
             set
             {
-                //?????????????????????
+                this.dm_longitude = value;
+                NotifyPropertyChanged("longitude");
             }
         }
         public double latitude
@@ -181,10 +189,17 @@ namespace FlightSimulatorApp.Model
             get { return this.dm_latitude; }
             set
             {
-                //?????????????????????
+                this.dm_latitude = value;
+                NotifyPropertyChanged("latitude");
             }
         }
-
+        public Location location {
+            get { return this.dm_location; }
+            set
+            {
+                NotifyPropertyChanged("location");
+            }
+        }
         public void connect(string ip, int port)
         {
             this.telnetClient.connect(ip, port);

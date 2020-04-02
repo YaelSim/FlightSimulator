@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlightSimulatorApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -18,11 +19,12 @@ namespace FlightSimulatorApp.Views
     /// </summary>
     public partial class MapComponent : UserControl
     {
+        private readonly MapViewModel map_vm;
         public MapComponent()
         {
             InitializeComponent();
+            this.map_vm = new MapViewModel();
+            this.DataContext = this.map_vm;
         }
-
-        ///public double xCoordinate
     }
 }
