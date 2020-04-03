@@ -1,21 +1,17 @@
-﻿using System;
+﻿using FlightSimulatorApp.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using FlightSimulatorApp.Model;
-using FlightSimulatorApp.Utilities;
-using Microsoft.Maps.MapControl.WPF;
+using System.Text;
 
 namespace FlightSimulatorApp.ViewModels
 {
-    public partial class MapViewModel : INotifyPropertyChanged
+    public partial class JoystickViewModel : INotifyPropertyChanged
     {
         private ISimulatorModel model;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public MapViewModel()
+        public JoystickViewModel()
         {
             //this.model = new MySimulatorModel(new TelnetClient());
             this.model = MySimulatorModel.GetSimulatorModel;
@@ -30,27 +26,48 @@ namespace FlightSimulatorApp.ViewModels
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-        [Obsolete]
-        public Location VM_location
+        public double VM_aileron
         {
             get
             {
-                Console.WriteLine("location" + model.latitude + "," + model.longitude);
-                return this.model.location;
+                return this.model.aileron;
+            }
+            set
+            {
+                this.model.aileron = value;
             }
         }
-        public double VM_longitude
+        public double VM_rudder
         {
             get
             {
-                return this.model.longitude;
+                return this.model.rudder;
+            }
+            set
+            {
+                this.model.rudder = value;
             }
         }
-        public double VM_latitude
+        public double VM_elevator
         {
             get
             {
-                return this.model.latitude;
+                return this.model.elevator;
+            }
+            set
+            {
+                this.model.elevator = value;
+            }
+        }
+        public double VM_throttle
+        {
+            get
+            {
+                return this.model.throttle;
+            }
+            set
+            {
+                this.model.throttle = value;
             }
         }
     }

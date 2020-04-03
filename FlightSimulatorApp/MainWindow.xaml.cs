@@ -1,4 +1,6 @@
-﻿using FlightSimulatorApp.Utilities;
+﻿using FlightSimulatorApp.Model;
+using FlightSimulatorApp.Utilities;
+using FlightSimulatorApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,21 +25,13 @@ namespace FlightSimulatorApp
     {
         public MainWindow()
         {
-            ITelnet tc = new TelnetClient();
-            tc.connect("127.0.0.1", 5402);
-            tc.write("Hello world");
-            Console.WriteLine(tc.read());
-            tc.disconnect();
             InitializeComponent();
+            /*ITelnet tc = new TelnetClient();
+            ISimulatorModel model = new MySimulatorModel(tc);
+            model.connect("127.0.0.1", 5402);
+            model.start();
+            model.disconnect();*/
+            MapComponent map = new MapComponent();
         }
-        /*public static int Main(string[] args)
-        {
-            ITelnet tc = new TelnetClient();
-            tc.connect("127.0.0.1", 5402);
-            tc.write("Hello world");
-            tc.read();
-            tc.disconnect();
-            return 0;
-        }*/
     }
 }

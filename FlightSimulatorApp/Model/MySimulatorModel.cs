@@ -10,6 +10,8 @@ namespace FlightSimulatorApp.Model
 {
     class MySimulatorModel : ISimulatorModel
     {
+        //Implementation of singleton to promise that we have exactly ONE SIMULATORMODEL
+        private static MySimulatorModel instance = null;
         // DON'T FORGET TO SEND MESSAGES TO THE SIMULATOR --- COMMAND DP!!!!!!!!!! ****************************
         // need to save all of the commands to the simulator in a list/ array / vector of strings. *********************
         private ITelnet telnetClient;
@@ -36,10 +38,26 @@ namespace FlightSimulatorApp.Model
         private double dm_latitude = 0;
         private double dm_longitude = 0;
         private Location dm_location = new Location(0, 0);
-        public MySimulatorModel(ITelnet tc)
+        private MySimulatorModel(ITelnet tc)
         {
             this.telnetClient = tc;
             this.stop = false;
+        }
+
+        //Singleton static method
+        public static MySimulatorModel GetSimulatorModel
+        {
+            get {
+                if (instance != null)
+                {
+                    return instance;
+                } else
+                {
+                    TelnetClient tc = new TelnetClient();
+                    MySimulatorModel.instance = new MySimulatorModel(tc);
+                    return instance;
+                }
+            }
         }
 
         //Dashboard Properties
