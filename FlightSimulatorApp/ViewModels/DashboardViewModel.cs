@@ -13,7 +13,6 @@ namespace FlightSimulatorApp.ViewModels
 
         public DashboardViewModel()
         {
-            //this.model = new MySimulatorModel(new TelnetClient());
             this.model = MySimulatorModel.GetSimulatorModel;
             this.model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e) {
                 NotifyPropertyChanged("VM_" + e.PropertyName);

@@ -26,17 +26,6 @@ namespace FlightSimulatorApp.ViewModels
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-        public double VM_aileron
-        {
-            get
-            {
-                return this.model.aileron;
-            }
-            set
-            {
-                this.model.aileron = value;
-            }
-        }
         public double VM_rudder
         {
             get
@@ -57,17 +46,6 @@ namespace FlightSimulatorApp.ViewModels
             set
             {
                 this.model.elevator = value;
-            }
-        }
-        public double VM_throttle
-        {
-            get
-            {
-                return this.model.throttle;
-            }
-            set
-            {
-                this.model.throttle = value;
             }
         }
     }

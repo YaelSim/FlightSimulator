@@ -7,18 +7,14 @@
         xmlns:ViewModels="clr-namespace:FlightSimulatorApp.ViewModels"
         xmlns:Views="clr-namespace:FlightSimulatorApp.Views"
         mc:Ignorable="d"
-        Title="FlightSimulator" Height="800" Width="1030">
+        Title="FlightSimulator" Height="800" Width="1200">
     <Canvas>
-        <Grid Height="785" Width="650" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Grid Height="785" Width="1200" HorizontalAlignment="Left" VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal">
-                <!--<StackPanel.DataContext>
-                <ViewModels:ExampleViewModel/>
-            </StackPanel.DataContext>
-            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Margin="5" />
-            <TextBlock Margin="5" Text="{Binding Name}"></TextBlock>-->
                 <Views:MapComponent></Views:MapComponent>
             </StackPanel>
         </Grid>
-        <Views:Joystick X="125" Y="125" Height="350" Canvas.Left="665" Canvas.Top="392" Width="300"/>
+        <Views:Joystick X="125" Y="125" Height="400" Width="500" Canvas.Left="600" Canvas.Top="392"/>
+        <Views:Sliders Canvas.Left="916" Canvas.Top="225"></Views:Sliders>
     </Canvas>
 </Window>

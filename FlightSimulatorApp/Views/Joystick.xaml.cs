@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlightSimulatorApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,10 +22,24 @@ namespace FlightSimulatorApp.Views
     /// </summary>
     public partial class Joystick : UserControl
     {
+        private readonly JoystickViewModel joystick_vm;
         public static readonly DependencyProperty XProperty = DependencyProperty.Register("X", typeof(double), typeof(Joystick),
             new FrameworkPropertyMetadata(125.0, FrameworkPropertyMetadataOptions.AffectsRender, onXChanged));
         public static readonly DependencyProperty YProperty = DependencyProperty.Register("Y", typeof(double), typeof(Joystick),
             new FrameworkPropertyMetadata(125.0, FrameworkPropertyMetadataOptions.AffectsRender, onYChanged));
+        public Joystick()
+        {
+            InitializeComponent();
+            centerPoint = new Point(Base.Width / 2 - KnobBase.Width / 2, Base.Height / 2 - KnobBase.Height / 2);
+            Base.MouseMove += Base_MouseMove;
+            Knob.MouseDown += Knob_MouseDown;
+            Base.MouseUp += Base_MouseUp;
+            centerOfKnob = Knob.Resources["CenterKnob"] as Storyboard;
+            X = Convert.ToDouble(GetValue(XProperty));
+            Y = Convert.ToDouble(GetValue(YProperty));
+            this.joystick_vm = new JoystickViewModel();
+            this.DataContext = this.joystick_vm;
+        }
 
         private static void onXChanged(DependencyObject JS, DependencyPropertyChangedEventArgs eventArgs)
         {
@@ -61,18 +76,6 @@ namespace FlightSimulatorApp.Views
         private double startOfY = 0;
         private readonly Storyboard centerOfKnob;
         private bool isMousePressed = false;
-
-        public Joystick()
-        {
-            InitializeComponent();
-            centerPoint = new Point(Base.Width / 2 - KnobBase.Width / 2, Base.Height / 2 - KnobBase.Height / 2);
-            Base.MouseMove += Base_MouseMove;
-            Knob.MouseDown += Knob_MouseDown;
-            Base.MouseUp += Base_MouseUp;
-            centerOfKnob = Knob.Resources["CenterKnob"] as Storyboard;
-            X = Convert.ToDouble(GetValue(XProperty));
-            Y = Convert.ToDouble(GetValue(YProperty));
-        }
         private void moveKnobToCenter()
         {
             centerOfKnob.Begin();
