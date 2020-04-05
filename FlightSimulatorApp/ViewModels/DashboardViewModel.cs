@@ -25,60 +25,60 @@ namespace FlightSimulatorApp.ViewModels
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-        public double VM_heading
+        public double VM_Heading
         {
             get
             {
-                return this.model.heading;
+                return this.model.Heading;
             }
         }
-        public double VM_verticalSpeed
+        public double VM_VerticalSpeed
         {
             get
             {
-                return this.model.verticalSpeed;
+                return this.model.VerticalSpeed;
             }
         }
-        public double VM_groundSpeed
+        public double VM_GroundSpeed
         {
             get
             {
-                return this.model.groundSpeed;
+                return this.model.GroundSpeed;
             }
         }
-        public double VM_airSpeed
+        public double VM_AirSpeed
         {
             get
             {
-                return this.model.airSpeed;
+                return this.model.AirSpeed;
             }
         }
-        public double VM_altitude
+        public double VM_Altitude
         {
             get
             {
-                return this.model.altitude;
+                return this.model.Altitude;
             }
         }
-        public double VM_internalRoll
+        public double VM_InternalRoll
         {
             get
             {
-                return this.model.internalRoll;
+                return this.model.InternalRoll;
             }
         }
-        public double VM_internalPitch
+        public double VM_InternalPitch
         {
             get
             {
-                return this.model.internalPitch;
+                return this.model.InternalPitch;
             }
         }
-        public double VM_altimeter
+        public double VM_Altimeter
         {
             get
             {
-                return this.model.altimeter;
+                return this.model.Altimeter;
             }
         }
     }

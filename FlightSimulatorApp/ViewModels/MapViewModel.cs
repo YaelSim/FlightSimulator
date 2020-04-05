@@ -30,26 +30,26 @@ namespace FlightSimulatorApp.ViewModels
             }
         }
         [Obsolete]
-        public Location VM_location
+        public Location VM_Location
         {
             get
             {
-                Console.WriteLine("location" + model.latitude + "," + model.longitude);
-                return this.model.location;
+                Console.WriteLine("location" + model.Latitude + "," + model.Longitude);
+                return this.model.Location;
             }
         }
-        public double VM_longitude
+        public double VM_Longitude
         {
             get
             {
-                return this.model.longitude;
+                return this.model.Longitude;
             }
         }
-        public double VM_latitude
+        public double VM_Latitude
         {
             get
             {
-                return this.model.latitude;
+                return this.model.Latitude;
             }
         }
     }

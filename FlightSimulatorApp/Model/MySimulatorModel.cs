@@ -18,6 +18,9 @@ namespace FlightSimulatorApp.Model
         private volatile bool stop;
         public event PropertyChangedEventHandler PropertyChanged;
 
+        //Connection Buttons property as a data member
+        private string dm_currStatus = "Disconnected";
+
         //Dashboard Properties as data members
         private double dm_heading;
         private double dm_verticalSpeed;
@@ -60,8 +63,18 @@ namespace FlightSimulatorApp.Model
             }
         }
 
+        //Connection Buttons property
+        public string CurrStatus
+        {
+            get { return this.dm_currStatus; }
+            set
+            {
+                this.dm_currStatus = value;
+            }
+        }
+
         //Dashboard Properties
-        public double heading
+        public double Heading
         {
             get { return this.dm_heading; }
             set {
@@ -69,7 +82,7 @@ namespace FlightSimulatorApp.Model
                 NotifyPropertyChanged("heading");
             }
         }
-        public double verticalSpeed {
+        public double VerticalSpeed {
             get { return this.dm_verticalSpeed; }
             set
             {
@@ -77,7 +90,7 @@ namespace FlightSimulatorApp.Model
                 NotifyPropertyChanged("verticalSpeed");
             }
         }
-        public double groundSpeed {
+        public double GroundSpeed {
             get { return this.dm_groundSpeed; }
             set
             {
@@ -85,7 +98,7 @@ namespace FlightSimulatorApp.Model
                 NotifyPropertyChanged("groundSpeed");
             }
         }
-        public double airSpeed {
+        public double AirSpeed {
             get { return this.dm_airSpeed; }
             set
             {
@@ -93,7 +106,7 @@ namespace FlightSimulatorApp.Model
                 NotifyPropertyChanged("airSpeed");
             }
         }
-        public double altitude {
+        public double Altitude {
             get { return this.dm_altitude; }
             set
             {
@@ -101,7 +114,7 @@ namespace FlightSimulatorApp.Model
                 NotifyPropertyChanged("altitude");
             }
         }
-        public double internalRoll {
+        public double InternalRoll {
             get { return this.dm_internalRoll; }
             set
             {
@@ -109,7 +122,7 @@ namespace FlightSimulatorApp.Model
                 NotifyPropertyChanged("internalRoll");
             }
         }
-        public double internalPitch {
+        public double InternalPitch {
             get { return this.dm_internalPitch; }
             set
             {
@@ -117,7 +130,7 @@ namespace FlightSimulatorApp.Model
                 NotifyPropertyChanged("internalPitch");
             }
         }
-        public double altimeter {
+        public double Altimeter {
             get { return this.dm_altimeter; }
             set
             {
@@ -127,7 +140,7 @@ namespace FlightSimulatorApp.Model
         }
 
         //Joystick's + Sliders' properties
-        public double rudder {
+        public double Rudder {
             get { return this.dm_rudder; }
             set
             {
@@ -143,7 +156,7 @@ namespace FlightSimulatorApp.Model
                 NotifyPropertyChanged("rudder");
             }
         }
-        public double elevator {
+        public double Elevator {
             get { return this.dm_elevator; }
             set
             {
@@ -159,7 +172,7 @@ namespace FlightSimulatorApp.Model
                 NotifyPropertyChanged("elevator");
             }
         }
-        public double aileron {
+        public double Aileron {
             get { return this.dm_aileron; }
             set
             {
@@ -175,7 +188,7 @@ namespace FlightSimulatorApp.Model
                 NotifyPropertyChanged("aileron");
             }
         }
-        public double throttle {
+        public double Throttle {
             get { return this.dm_throttle; }
             set
             {
@@ -194,7 +207,7 @@ namespace FlightSimulatorApp.Model
 
         //Map's properties - Determine the plane's location over the Bing map
         //VERIFY if we did it correct *******************************
-        public double longitude
+        public double Longitude
         { get { return this.dm_longitude; }
             set
             {
@@ -202,7 +215,7 @@ namespace FlightSimulatorApp.Model
                 NotifyPropertyChanged("longitude");
             }
         }
-        public double latitude
+        public double Latitude
         {
             get { return this.dm_latitude; }
             set
@@ -211,23 +224,23 @@ namespace FlightSimulatorApp.Model
                 NotifyPropertyChanged("latitude");
             }
         }
-        public Location location {
+        public Location Location {
             get { return this.dm_location; }
             set
             {
                 NotifyPropertyChanged("location");
             }
         }
-        public void connect(string ip, int port)
+        public void Connect(string ip, int port)
         {
             this.telnetClient.connect(ip, port);
         }
-        public void disconnect()
+        public void Disconnect()
         {
             this.stop = true;
             this.telnetClient.disconnect();
         }
-        public void start()
+        public void Start()
         {
             new Thread(delegate ()
             {
@@ -238,7 +251,7 @@ namespace FlightSimulatorApp.Model
                     tempStr = this.telnetClient.read();
                     if (!(tempStr.Equals("ERR")))
                     {
-                        heading = Double.Parse(tempStr);
+                        Heading = Double.Parse(tempStr);
                     }
                     //think what happens when it IS AN ERROR!!!!!!!!!!!!!!!!!!!!!!!!**************************
 
@@ -246,49 +259,49 @@ namespace FlightSimulatorApp.Model
                     tempStr = this.telnetClient.read();
                     if (!(tempStr.Equals("ERR")))
                     {
-                        verticalSpeed = Double.Parse(tempStr);
+                        VerticalSpeed = Double.Parse(tempStr);
                     }
 
                     this.telnetClient.write("get /instrumentation/gps/indicated-ground-speed-kt");
                     tempStr = this.telnetClient.read();
                     if (!(tempStr.Equals("ERR")))
                     {
-                        groundSpeed = Double.Parse(tempStr);
+                        GroundSpeed = Double.Parse(tempStr);
                     }
 
                     this.telnetClient.write("get /instrumentation/airspeed-indicator/indicated-speed-kt");
                     tempStr = this.telnetClient.read();
                     if (!(tempStr.Equals("ERR")))
                     {
-                        airSpeed = Double.Parse(tempStr);
+                        AirSpeed = Double.Parse(tempStr);
                     }
 
                     this.telnetClient.write("get /instrumentation/gps/indicated-altitude-ft");
                     tempStr = this.telnetClient.read();
                     if (!(tempStr.Equals("ERR")))
                     {
-                        altitude = Double.Parse(tempStr);
+                        Altitude = Double.Parse(tempStr);
                     }
 
                     this.telnetClient.write("get /instrumentation/attitude-indicator/internal-roll-deg");
                     tempStr = this.telnetClient.read();
                     if (!(tempStr.Equals("ERR")))
                     {
-                        internalRoll = Double.Parse(tempStr);
+                        InternalRoll = Double.Parse(tempStr);
                     }
 
                     this.telnetClient.write("get /instrumentation/attitude-indicator/internal-pitch-deg");
                     tempStr = this.telnetClient.read();
                     if (!(tempStr.Equals("ERR")))
                     {
-                        internalPitch = Double.Parse(tempStr);
+                        InternalPitch = Double.Parse(tempStr);
                     }
                     
                     this.telnetClient.write("get /instrumentation/altimeter/indicated-altitude-ft");
                     tempStr = this.telnetClient.read();
                     if (!(tempStr.Equals("ERR")))
                     {
-                        altimeter = Double.Parse(tempStr);
+                        Altimeter = Double.Parse(tempStr);
                     }
 
                     Thread.Sleep(250); //SLEEP FOR 250 MS - that determines we will ask for details 4 times in a sec.

@@ -29,11 +29,11 @@ namespace FlightSimulatorApp.Views
         public void ValueChangedAileron(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             double val = Convert.ToDouble(e.NewValue);
-            this.sliders_vm.VM_aileron = val;
+            this.sliders_vm.VM_Aileron = val;
         }
         public void ValueChangedThrottle(object sender, RoutedPropertyChangedEventArgs<double> e) {
             double val = Convert.ToDouble(e.NewValue);
-            this.sliders_vm.VM_throttle = val;
+            this.sliders_vm.VM_Throttle = val;
         }
     }
 }

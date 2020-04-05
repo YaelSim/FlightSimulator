@@ -9,8 +9,8 @@
     <Grid>
         <DockPanel VerticalAlignment="Center" Margin="0,200,0,0" Grid.ColumnSpan="3"/>
         <DockPanel VerticalAlignment="Center" Margin="0" Grid.ColumnSpan="3"/>
-        <Label x:Name="AlleronValue" Content="{Binding Path=VM_aileron, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="135,99,77,0" VerticalAlignment="Top" Background="#FFDAD7D7" Height="26" Width="38"/>
-        <Label x:Name="ThrottleValue" Content="{Binding Path=VM_throttle, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="135,200,77,0" VerticalAlignment="Top" Width="38" Height="26" Background="#FFDAD7D7"/>
+        <Label x:Name="AlleronValue" Content="{Binding Path=VM_Aileron, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="135,99,77,0" VerticalAlignment="Top" Background="#FFDAD7D7" Height="26" Width="38"/>
+        <Label x:Name="ThrottleValue" Content="{Binding Path=VM_Throttle, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="135,200,77,0" VerticalAlignment="Top" Width="38" Height="26" Background="#FFDAD7D7"/>
         <Label FontWeight="Bold" Content="throttle:" Margin="1,169,193,55"/>
         <Slider x:Name="ThrottleSlider" Maximum="1" Minimum="0"  TickPlacement="BottomRight" TickFrequency="0.1" IsSnapToTickEnabled="True" ValueChanged="ValueChangedThrottle" Margin="57,169,-1,55" />
         <Label FontWeight="Bold" Content="aileron:" Margin="3,64,195,160"/>

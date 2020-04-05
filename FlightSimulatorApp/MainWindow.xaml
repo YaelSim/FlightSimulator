@@ -7,7 +7,7 @@
         xmlns:ViewModels="clr-namespace:FlightSimulatorApp.ViewModels"
         xmlns:Views="clr-namespace:FlightSimulatorApp.Views"
         mc:Ignorable="d"
-        Title="FlightSimulator" Height="800" Width="1200">
+        Title="FlightSimulator" Height="800" Width="1200" Background="#FFE0FFFF">
     <Canvas>
         <Grid Height="785" Width="1200" HorizontalAlignment="Left" VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal">
@@ -16,5 +16,7 @@
         </Grid>
         <Views:Joystick X="125" Y="125" Height="400" Width="500" Canvas.Left="600" Canvas.Top="392"/>
         <Views:Sliders Canvas.Left="916" Canvas.Top="225"></Views:Sliders>
+        <Views:DashboardComponent Canvas.Left="697" Canvas.Top="156"></Views:DashboardComponent>
+        <Views:ConnectionButtons Canvas.Left="697" Height="208" Width="344" Canvas.Top="-5"/>
     </Canvas>
 </Window>

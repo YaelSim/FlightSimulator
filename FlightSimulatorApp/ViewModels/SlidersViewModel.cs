@@ -25,26 +25,26 @@ namespace FlightSimulatorApp.ViewModels
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-        public double VM_aileron
+        public double VM_Aileron
         {
             get
             {
-                return this.model.aileron;
+                return this.model.Aileron;
             }
             set
             {
-                this.model.aileron = value;
+                this.model.Aileron = value;
             }
         }
-        public double VM_throttle
+        public double VM_Throttle
         {
             get
             {
-                return this.model.throttle;
+                return this.model.Throttle;
             }
             set
             {
-                this.model.throttle = value;
+                this.model.Throttle = value;
             }
         }
     }

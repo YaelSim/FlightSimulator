@@ -7,6 +7,34 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock Margin="0,0,0,0" TextWrapping="Wrap" Text="Heading   " VerticalAlignment="center" FontSize="18" Grid.Column="0" TextAlignment="Center" HorizontalAlignment="Center" FontWeight ="Bold"/>
+        <TextBlock  Margin="0,0,0,0" VerticalAlignment="Center" FontSize="14" TextAlignment="Center" Text="{Binding Path = VM_Heading, Mode=OneWay, StringFormat=N, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Column="1"  TextWrapping="Wrap" Text="Vertical Speed   " VerticalAlignment="center" FontSize="20" TextAlignment="Center" HorizontalAlignment="Center" FontWeight ="Bold"/>
+        <TextBlock  Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center" Text="{Binding Path = VM_VerticalSpeed, Mode=OneWay, StringFormat=N, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center"/>
+        <TextBlock Margin="0,0,0,0" TextWrapping="Wrap" Text="Ground Speed   " VerticalAlignment="center" FontSize="18" Grid.Column="2" TextAlignment="Center" HorizontalAlignment="Center" FontWeight ="Bold"/>
+        <TextBlock  Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center" Text="{Binding Path = VM_GroundSpeed, Mode=OneWay, StringFormat=N, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center"/>
+        <TextBlock Margin="0,0,0,0" TextWrapping="Wrap" Text="Air Speed   " VerticalAlignment="center" FontSize="18" Grid.Column="3" TextAlignment="Center" HorizontalAlignment="Center" FontWeight ="Bold"/>
+        <TextBlock  Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center" Text="{Binding Path = VM_AirSpeed, Mode=OneWay, StringFormat=N, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center"/>
+
+        <TextBlock Margin="0,0,0,0" TextWrapping="Wrap" Text="Altitude   " VerticalAlignment="center" FontSize="18" Grid.Column="0" Grid.Row="2" TextAlignment="Center" HorizontalAlignment="Center" FontWeight ="Bold"/>
+        <TextBlock  Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center" Text="{Binding Path = VM_Altitude, Mode=OneWay, StringFormat=N, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center"/>
+        <TextBlock Margin="0,0,0,0" TextWrapping="Wrap" Text="Internal Roll   " VerticalAlignment="center" FontSize="18" Grid.Column="1" Grid.Row="2" TextAlignment="Center" HorizontalAlignment="Center" FontWeight ="Bold"/>
+        <TextBlock  Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center" Text="{Binding Path = VM_InternalRoll, Mode=OneWay, StringFormat=N, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center"/>
+        <TextBlock Margin="0,0,0,0" TextWrapping="Wrap" Text="Internal Pitch   " VerticalAlignment="center" FontSize="18" Grid.Column="2" Grid.Row="2" TextAlignment="Center" HorizontalAlignment="Center" FontWeight ="Bold"/>
+        <TextBlock  Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center" Text="{Binding Path = VM_InternalPitch, Mode=OneWay, StringFormat=N, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center"/>
+        <TextBlock Margin="0,0,0,0" TextWrapping="Wrap" Text="Altimeter   " VerticalAlignment="center" FontSize="18" Grid.Column="3" Grid.Row="2" TextAlignment="Center" HorizontalAlignment="Center" FontWeight ="Bold"/>
+        <TextBlock  Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center" Text="{Binding Path = VM_Altimeter, Mode=OneWay, StringFormat=N, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="3" HorizontalAlignment="Center"/>
     </Grid>
 </UserControl>

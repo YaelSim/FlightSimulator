@@ -6,14 +6,11 @@ using System.Text;
 
 namespace FlightSimulatorApp.ViewModels
 {
-    public partial class JoystickViewModel : INotifyPropertyChanged
+    public partial class ConnectionButtonsViewModel : INotifyPropertyChanged
     {
         private ISimulatorModel model;
         public event PropertyChangedEventHandler PropertyChanged;
-
-        public JoystickViewModel()
-        {
-            //this.model = new MySimulatorModel(new TelnetClient());
+        public ConnectionButtonsViewModel() {
             this.model = MySimulatorModel.GetSimulatorModel;
             this.model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e) {
                 NotifyPropertyChanged("VM_" + e.PropertyName);
@@ -26,27 +23,7 @@ namespace FlightSimulatorApp.ViewModels
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-        public double VM_Rudder
-        {
-            get
-            {
-                return this.model.Rudder;
-            }
-            set
-            {
-                this.model.Rudder = value;
-            }
-        }
-        public double VM_Elevator
-        {
-            get
-            {
-                return this.model.Elevator;
-            }
-            set
-            {
-                this.model.Elevator = value;
-            }
-        }
+
+        public string VM_CurrStatus { get { return this.model.CurrStatus; } }
     }
 }
