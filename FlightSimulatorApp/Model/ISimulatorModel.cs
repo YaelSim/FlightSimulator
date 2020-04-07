@@ -12,6 +12,7 @@ namespace FlightSimulatorApp.Model
         void Connect(string ip, int port);
         void Disconnect();
         void Start();
+        void SendCommandToSimulator(string command);
 
         //Simulator Properties
         double Heading { get; set; }

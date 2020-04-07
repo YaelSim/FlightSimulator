@@ -40,7 +40,6 @@ namespace FlightSimulatorApp.Views
             this.joystick_vm = new JoystickViewModel();
             this.DataContext = this.joystick_vm;
         }
-
         private static void onXChanged(DependencyObject JS, DependencyPropertyChangedEventArgs eventArgs)
         {
             (JS as Joystick).knobPosition.X = (double)eventArgs.NewValue;
@@ -56,6 +55,14 @@ namespace FlightSimulatorApp.Views
             get { return Convert.ToDouble(GetValue(XProperty)); }
             set
             {
+                value *= 100;
+                int valAsInt = (int)value;
+                value = (double)valAsInt;
+                value /= 100;
+                //Convert the value (double) to string, in order to pass it to the ViewModel.
+                string valAsString = value.ToString();
+                string cmd = "set /controls/flight/elevator " + valAsString;
+                this.joystick_vm.sendCommandToModel(cmd);
                 SetValue(XProperty, value);
                 knobPosition.X = X;
             }
@@ -66,6 +73,14 @@ namespace FlightSimulatorApp.Views
             get { return Convert.ToDouble(GetValue(YProperty)); }
             set
             {
+                value *= 100;
+                int valAsInt = (int)value;
+                value = (double)valAsInt;
+                value /= 100;
+                //Convert the value (double) to string, in order to pass it to the ViewModel.
+                string valAsString = value.ToString();
+                string cmd = "set /controls/flight/rudder " + valAsString;
+                this.joystick_vm.sendCommandToModel(cmd);
                 SetValue(YProperty, value);
                 knobPosition.Y = Y;
             }
@@ -131,5 +146,6 @@ namespace FlightSimulatorApp.Views
         private void CenterKnob_Completed(object sender, EventArgs e)
         {
         }
+
     }
 }

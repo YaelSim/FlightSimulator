@@ -26,6 +26,10 @@ namespace FlightSimulatorApp.ViewModels
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+        public void sendCommandToModel(string cmd)
+        {
+            this.model.SendCommandToSimulator(cmd);
+        }
         public double VM_Rudder
         {
             get

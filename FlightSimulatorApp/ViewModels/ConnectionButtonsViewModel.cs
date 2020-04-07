@@ -23,6 +23,10 @@ namespace FlightSimulatorApp.ViewModels
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+        public void sendCommandToModel(string cmd)
+        {
+            this.model.SendCommandToSimulator(cmd);
+        }
 
         public string VM_CurrStatus { get { return this.model.CurrStatus; } }
     }

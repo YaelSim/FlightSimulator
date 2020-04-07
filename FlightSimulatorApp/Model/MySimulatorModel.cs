@@ -3,6 +3,7 @@ using Microsoft.Maps.MapControl.WPF;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Text;
 using System.Threading;
 
@@ -17,6 +18,7 @@ namespace FlightSimulatorApp.Model
         private ITelnet telnetClient;
         private volatile bool stop;
         public event PropertyChangedEventHandler PropertyChanged;
+        private readonly Mutex mutex = new Mutex();
 
         //Connection Buttons property as a data member
         private string dm_currStatus = "Disconnected";
@@ -206,13 +208,18 @@ namespace FlightSimulatorApp.Model
         }
 
         //Map's properties - Determine the plane's location over the Bing map
-        //VERIFY if we did it correct *******************************
         public double Longitude
         { get { return this.dm_longitude; }
             set
             {
-                this.dm_longitude = value;
-                NotifyPropertyChanged("longitude");
+                if ((value >= -180) && (value <= 180))
+                {
+                    this.dm_longitude = value;
+                    NotifyPropertyChanged("longitude");
+                } else
+                {
+                    //IMPLEMENT ERROR ENGINE ********************************************
+                }
             }
         }
         public double Latitude
@@ -220,8 +227,14 @@ namespace FlightSimulatorApp.Model
             get { return this.dm_latitude; }
             set
             {
-                this.dm_latitude = value;
-                NotifyPropertyChanged("latitude");
+                if ((value <= 90) && (value >= -90))
+                {
+                    this.dm_latitude = value;
+                    NotifyPropertyChanged("latitude");
+                } else
+                {
+                    //IMPLEMENT ERROR ENGINE ********************************************
+                }
             }
         }
         public Location Location {
@@ -313,6 +326,19 @@ namespace FlightSimulatorApp.Model
             if (this.PropertyChanged != null)
             {
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        public void SendCommandToSimulator(string command)
+        {
+            if (!stop)
+            {
+                mutex.WaitOne();
+                this.telnetClient.write(command);
+                Debug.WriteLine("sent: " + command);
+                // DELETE AFTERWARDS ************************************************************
+                string str = this.telnetClient.read();
+                Debug.WriteLine("response: " + str);
+                mutex.ReleaseMutex();
             }
         }
     }
