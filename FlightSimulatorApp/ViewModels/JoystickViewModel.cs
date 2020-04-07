@@ -10,11 +10,9 @@ namespace FlightSimulatorApp.ViewModels
     {
         private ISimulatorModel model;
         public event PropertyChangedEventHandler PropertyChanged;
-
-        public JoystickViewModel()
+        public JoystickViewModel(ISimulatorModel m)
         {
-            //this.model = new MySimulatorModel(new TelnetClient());
-            this.model = MySimulatorModel.GetSimulatorModel;
+            this.model = m;
             this.model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e) {
                 NotifyPropertyChanged("VM_" + e.PropertyName);
             };
@@ -30,6 +28,7 @@ namespace FlightSimulatorApp.ViewModels
         {
             this.model.SendCommandToSimulator(cmd);
         }
+        //Joystick Properties
         public double VM_Rudder
         {
             get
@@ -39,6 +38,7 @@ namespace FlightSimulatorApp.ViewModels
             set
             {
                 this.model.Rudder = value;
+                NotifyPropertyChanged("VM_Ruuder");
             }
         }
         public double VM_Elevator
@@ -50,6 +50,32 @@ namespace FlightSimulatorApp.ViewModels
             set
             {
                 this.model.Elevator = value;
+                NotifyPropertyChanged("VM_Elevator");
+            }
+        }
+        //Sliders' Properties
+        public double VM_Aileron
+        {
+            get
+            {
+                return this.model.Aileron;
+            }
+            set
+            {
+                this.model.Aileron = value;
+                NotifyPropertyChanged("VM_Aileron");
+            }
+        }
+        public double VM_Throttle
+        {
+            get
+            {
+                return this.model.Throttle;
+            }
+            set
+            {
+                this.model.Throttle = value;
+                NotifyPropertyChanged("VM_Throttle");
             }
         }
     }

@@ -11,19 +11,17 @@ namespace FlightSimulatorApp.ViewModels
         private ISimulatorModel model;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public DashboardViewModel()
+        public DashboardViewModel(ISimulatorModel m)
         {
-            this.model = MySimulatorModel.GetSimulatorModel;
+            //this.model = MySimulatorModel.GetSimulatorModel;
+            this.model = m;
             this.model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e) {
                 NotifyPropertyChanged("VM_" + e.PropertyName);
             };
         }
         public void NotifyPropertyChanged(string propertyName)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         public double VM_Heading
         {

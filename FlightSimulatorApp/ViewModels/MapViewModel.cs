@@ -15,9 +15,10 @@ namespace FlightSimulatorApp.ViewModels
         private ISimulatorModel model;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public MapViewModel()
+        public MapViewModel(ISimulatorModel m)
         {
-            this.model = MySimulatorModel.GetSimulatorModel;
+            //this.model = MySimulatorModel.GetSimulatorModel;
+            this.model = m;
             this.model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e) {
                 NotifyPropertyChanged("VM_" + e.PropertyName);
             };

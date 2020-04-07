@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FlightSimulatorApp.Utilities
 {
-    interface ITelnet
+    public interface ITelnet
     {
         void connect(string ip, int port);
         void disconnect();

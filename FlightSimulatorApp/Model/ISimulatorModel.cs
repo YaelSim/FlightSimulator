@@ -6,7 +6,7 @@ using Microsoft.Maps.MapControl.WPF;
 
 namespace FlightSimulatorApp.Model
 {
-    interface ISimulatorModel : INotifyPropertyChanged
+    public interface ISimulatorModel : INotifyPropertyChanged
     {
         //Methods that are responsible for connecting to the simulator
         void Connect(string ip, int port);
@@ -37,5 +37,8 @@ namespace FlightSimulatorApp.Model
 
         //Connection buttons' property
         string CurrStatus { get; set; }
+        string IPaddress { get; set; }
+        int Port { get; set; }
+
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FlightSimulatorApp.Utilities
 {
-    class TelnetClient : ITelnet
+    public class TelnetClient : ITelnet
     {
         private Socket sender;
 
@@ -95,7 +95,6 @@ namespace FlightSimulatorApp.Utilities
             //If any exception was caught, return null
             return null;
         }
-
         public void write(string commandStr)
         {
             try

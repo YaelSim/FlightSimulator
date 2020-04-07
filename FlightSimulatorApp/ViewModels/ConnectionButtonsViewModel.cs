@@ -10,24 +10,42 @@ namespace FlightSimulatorApp.ViewModels
     {
         private ISimulatorModel model;
         public event PropertyChangedEventHandler PropertyChanged;
-        public ConnectionButtonsViewModel() {
-            this.model = MySimulatorModel.GetSimulatorModel;
-            this.model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e) {
+        public ConnectionButtonsViewModel(ISimulatorModel m) {
+            model = m;
+            model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e) {
                 NotifyPropertyChanged("VM_" + e.PropertyName);
             };
         }
         public void NotifyPropertyChanged(string propertyName)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         public void sendCommandToModel(string cmd)
         {
             this.model.SendCommandToSimulator(cmd);
         }
-
+        public void connect(string ip, int port)
+        {
+            model.Connect(ip, port);
+        }
         public string VM_CurrStatus { get { return this.model.CurrStatus; } }
+        public string IPaddress
+        {
+            get { return model.IPaddress; }
+            set
+            {
+                model.IPaddress = value;
+                NotifyPropertyChanged("IPaddress");
+            }
+        }
+        public int Port
+        {
+            get { return model.Port; }
+            set
+            {
+                model.Port = value;
+                NotifyPropertyChanged("Port");
+            }
+        }
     }
 }

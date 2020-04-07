@@ -1,5 +1,4 @@
-﻿using FlightSimulatorApp.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -9,22 +8,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace FlightSimulatorApp.Views
 {
     /// <summary>
-    /// Interaction logic for DashboardComponent.xaml
+    /// Interaction logic for ConnectionDefinitionsWindow.xaml
     /// </summary>
-    public partial class DashboardComponent : UserControl
+    public partial class ConnectionDefinitionsWindow : Window
     {
-        private DashboardViewModel dashboard_vm;
-        public DashboardComponent(DashboardViewModel dashboard)
+        public ConnectionDefinitionsWindow()
         {
             InitializeComponent();
-            dashboard_vm = dashboard;
-            DataContext = this.dashboard_vm;
+        }
+
+        public void ClickedOnConnect(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -19,12 +19,16 @@ namespace FlightSimulatorApp.Views
     /// </summary>
     public partial class Sliders : UserControl
     {
-        private readonly SlidersViewModel sliders_vm;
-        public Sliders()
+        //private readonly SlidersViewModel sliders_vm;
+        private readonly JoystickViewModel joystick_vm;
+        //public Sliders(SlidersViewModel vm)
+        public Sliders(JoystickViewModel vm)
         {
             InitializeComponent();
-            this.sliders_vm = new SlidersViewModel();
-            this.DataContext = this.sliders_vm;
+            //this.sliders_vm = vm;
+            //this.DataContext = this.sliders_vm;
+            joystick_vm = vm;
+            DataContext = joystick_vm;
         }
         public void ValueChangedAileron(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
@@ -36,9 +40,11 @@ namespace FlightSimulatorApp.Views
             //Convert the value (double) to string, in order to pass it to the ViewModel.
             string valAsString = val.ToString();
             string cmd = "set /controls/engines/current-engine/throttle " + valAsString;
-            this.sliders_vm.sendCommandToModel(cmd);
+            //this.sliders_vm.sendCommandToModel(cmd);
+            joystick_vm.sendCommandToModel(cmd);
             //CHECK IF THE FOLLOWING LINE IS NEEDED *******************************
-            this.sliders_vm.VM_Aileron = val;
+            //this.sliders_vm.VM_Aileron = val;
+            joystick_vm.VM_Aileron = val;
         }
         public void ValueChangedThrottle(object sender, RoutedPropertyChangedEventArgs<double> e) {
             double val = Convert.ToDouble(e.NewValue);
@@ -49,9 +55,11 @@ namespace FlightSimulatorApp.Views
             //Convert the value (double) to string, in order to pass it to the ViewModel.
             string valAsString = val.ToString();
             string cmd = "set /controls/engines/current-engine/throttle " + valAsString;
-            this.sliders_vm.sendCommandToModel(cmd);
+           // this.sliders_vm.sendCommandToModel(cmd);
             //CHECK IF THE FOLLOWING LINE IS NEEDED *******************************
-            this.sliders_vm.VM_Throttle = val;
+           // this.sliders_vm.VM_Throttle = val;
+            joystick_vm.sendCommandToModel(cmd);
+            joystick_vm.VM_Throttle = val;
         }
     }
 }

@@ -9,12 +9,10 @@ using System.Threading;
 
 namespace FlightSimulatorApp.Model
 {
-    class MySimulatorModel : ISimulatorModel
+    public class MySimulatorModel : ISimulatorModel
     {
         //Implementation of singleton to promise that we have exactly ONE SIMULATORMODEL
-        private static MySimulatorModel instance = null;
-        // DON'T FORGET TO SEND MESSAGES TO THE SIMULATOR --- COMMAND DP!!!!!!!!!! ****************************
-        // need to save all of the commands to the simulator in a list/ array / vector of strings. *********************
+        //private static MySimulatorModel instance = null;
         private ITelnet telnetClient;
         private volatile bool stop;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -22,6 +20,9 @@ namespace FlightSimulatorApp.Model
 
         //Connection Buttons property as a data member
         private string dm_currStatus = "Disconnected";
+        private bool dm_error = false;
+        private string dm_IPaddress;
+        private int dm_port;
 
         //Dashboard Properties as data members
         private double dm_heading;
@@ -43,107 +44,92 @@ namespace FlightSimulatorApp.Model
         private double dm_latitude = 0;
         private double dm_longitude = 0;
         private Location dm_location = new Location(0, 0);
-        private MySimulatorModel(ITelnet tc)
+        public MySimulatorModel(ITelnet tc)
         {
             this.telnetClient = tc;
             this.stop = false;
         }
 
-        //Singleton static method
-        public static MySimulatorModel GetSimulatorModel
-        {
-            get {
-                if (instance != null)
-                {
-                    return instance;
-                } else
-                {
-                    TelnetClient tc = new TelnetClient();
-                    MySimulatorModel.instance = new MySimulatorModel(tc);
-                    return instance;
-                }
-            }
-        }
-
         //Connection Buttons property
         public string CurrStatus
         {
-            get { return this.dm_currStatus; }
+            get { return dm_currStatus; }
             set
             {
-                this.dm_currStatus = value;
+                dm_currStatus = value;
+                NotifyPropertyChanged("CurrStatus");
             }
         }
 
         //Dashboard Properties
         public double Heading
         {
-            get { return this.dm_heading; }
+            get { return dm_heading; }
             set {
-                this.dm_heading = value;
-                NotifyPropertyChanged("heading");
+                dm_heading = value;
+                NotifyPropertyChanged("Heading");
             }
         }
         public double VerticalSpeed {
-            get { return this.dm_verticalSpeed; }
+            get { return dm_verticalSpeed; }
             set
             {
-                this.dm_verticalSpeed = value;
-                NotifyPropertyChanged("verticalSpeed");
+                dm_verticalSpeed = value;
+                NotifyPropertyChanged("VerticalSpeed");
             }
         }
         public double GroundSpeed {
-            get { return this.dm_groundSpeed; }
+            get { return dm_groundSpeed; }
             set
             {
-                this.dm_groundSpeed = value;
-                NotifyPropertyChanged("groundSpeed");
+                dm_groundSpeed = value;
+                NotifyPropertyChanged("GroundSpeed");
             }
         }
         public double AirSpeed {
-            get { return this.dm_airSpeed; }
+            get { return dm_airSpeed; }
             set
             {
-                this.dm_airSpeed = value;
-                NotifyPropertyChanged("airSpeed");
+                dm_airSpeed = value;
+                NotifyPropertyChanged("AirSpeed");
             }
         }
         public double Altitude {
-            get { return this.dm_altitude; }
+            get { return dm_altitude; }
             set
             {
-                this.dm_altitude = value;
-                NotifyPropertyChanged("altitude");
+                dm_altitude = value;
+                NotifyPropertyChanged("Altitude");
             }
         }
         public double InternalRoll {
-            get { return this.dm_internalRoll; }
+            get { return dm_internalRoll; }
             set
             {
-                this.dm_internalRoll = value;
-                NotifyPropertyChanged("internalRoll");
+                dm_internalRoll = value;
+                NotifyPropertyChanged("InternalRoll");
             }
         }
         public double InternalPitch {
-            get { return this.dm_internalPitch; }
+            get { return dm_internalPitch; }
             set
             {
-                this.dm_internalPitch = value;
-                NotifyPropertyChanged("internalPitch");
+                dm_internalPitch = value;
+                NotifyPropertyChanged("InternalPitch");
             }
         }
         public double Altimeter {
-            get { return this.dm_altimeter; }
+            get { return dm_altimeter; }
             set
             {
-                this.dm_altimeter = value;
-                NotifyPropertyChanged("altimeter");
+                dm_altimeter = value;
+                NotifyPropertyChanged("Altimeter");
             }
         }
 
         //Joystick's + Sliders' properties
         public double Rudder {
-            get { return this.dm_rudder; }
+            get { return dm_rudder; }
             set
             {
                 if (value < (-1))
@@ -154,12 +140,12 @@ namespace FlightSimulatorApp.Model
                 {
                     value = 1;
                 }
-                this.dm_rudder = value;
-                NotifyPropertyChanged("rudder");
+                dm_rudder = value;
+                NotifyPropertyChanged("Rudder");
             }
         }
         public double Elevator {
-            get { return this.dm_elevator; }
+            get { return dm_elevator; }
             set
             {
                 if (value < (-1))
@@ -170,12 +156,12 @@ namespace FlightSimulatorApp.Model
                 {
                     value = 1;
                 }
-                this.dm_elevator = value;
-                NotifyPropertyChanged("elevator");
+                dm_elevator = value;
+                NotifyPropertyChanged("Elevator");
             }
         }
         public double Aileron {
-            get { return this.dm_aileron; }
+            get { return dm_aileron; }
             set
             {
                 if (value < (-1))
@@ -186,12 +172,12 @@ namespace FlightSimulatorApp.Model
                 {
                     value = 1;
                 }
-                this.dm_aileron = value;
-                NotifyPropertyChanged("aileron");
+                dm_aileron = value;
+                NotifyPropertyChanged("Aileron");
             }
         }
         public double Throttle {
-            get { return this.dm_throttle; }
+            get { return dm_throttle; }
             set
             {
                 if (value < 0)
@@ -202,56 +188,56 @@ namespace FlightSimulatorApp.Model
                 {
                     value = 1;
                 }
-                this.dm_throttle = value;
-                NotifyPropertyChanged("throttle");
+                dm_throttle = value;
+                NotifyPropertyChanged("Throttle");
             }
         }
 
         //Map's properties - Determine the plane's location over the Bing map
         public double Longitude
-        { get { return this.dm_longitude; }
+        { get { return dm_longitude; }
             set
             {
                 if ((value >= -180) && (value <= 180))
                 {
-                    this.dm_longitude = value;
-                    NotifyPropertyChanged("longitude");
+                    dm_longitude = value;
+                    NotifyPropertyChanged("Longitude");
                 } else
                 {
-                    //IMPLEMENT ERROR ENGINE ********************************************
+                    dm_error = true;
                 }
             }
         }
         public double Latitude
         {
-            get { return this.dm_latitude; }
+            get { return dm_latitude; }
             set
             {
                 if ((value <= 90) && (value >= -90))
                 {
-                    this.dm_latitude = value;
-                    NotifyPropertyChanged("latitude");
+                    dm_latitude = value;
+                    NotifyPropertyChanged("Latitude");
                 } else
                 {
-                    //IMPLEMENT ERROR ENGINE ********************************************
+                    dm_error = true;
                 }
             }
         }
         public Location Location {
-            get { return this.dm_location; }
+            get { return dm_location; }
             set
             {
-                NotifyPropertyChanged("location");
+                NotifyPropertyChanged("Location");
             }
         }
         public void Connect(string ip, int port)
         {
-            this.telnetClient.connect(ip, port);
+            telnetClient.connect(ip, port);
         }
         public void Disconnect()
         {
-            this.stop = true;
-            this.telnetClient.disconnect();
+            stop = true;
+            telnetClient.disconnect();
         }
         public void Start()
         {
@@ -259,81 +245,86 @@ namespace FlightSimulatorApp.Model
             {
                 while (!stop)
                 {
-                    string tempStr;
-                    this.telnetClient.write("get /instrumentation/heading-indicator/indicated-heading-deg");
-                    tempStr = this.telnetClient.read();
-                    if (!(tempStr.Equals("ERR")))
+                    try
                     {
-                        Heading = Double.Parse(tempStr);
-                    }
-                    //think what happens when it IS AN ERROR!!!!!!!!!!!!!!!!!!!!!!!!**************************
+                        string tempStr;
+                        telnetClient.write("get /instrumentation/heading-indicator/indicated-heading-deg");
+                        tempStr = telnetClient.read();
+                        if (!(tempStr.Equals("ERR")))
+                        {
+                            Heading = Double.Parse(tempStr);
+                        }
+                        //think what happens when it IS AN ERROR!!!!!!!!!!!!!!!!!!!!!!!!**************************
 
-                    this.telnetClient.write("get /instrumentation/gps/indicated-vertical-speed");
-                    tempStr = this.telnetClient.read();
-                    if (!(tempStr.Equals("ERR")))
-                    {
-                        VerticalSpeed = Double.Parse(tempStr);
-                    }
+                        telnetClient.write("get /instrumentation/gps/indicated-vertical-speed");
+                        tempStr = telnetClient.read();
+                        if (!(tempStr.Equals("ERR")))
+                        {
+                            VerticalSpeed = Double.Parse(tempStr);
+                        }
 
-                    this.telnetClient.write("get /instrumentation/gps/indicated-ground-speed-kt");
-                    tempStr = this.telnetClient.read();
-                    if (!(tempStr.Equals("ERR")))
-                    {
-                        GroundSpeed = Double.Parse(tempStr);
-                    }
+                        telnetClient.write("get /instrumentation/gps/indicated-ground-speed-kt");
+                        tempStr = telnetClient.read();
+                        if (!(tempStr.Equals("ERR")))
+                        {
+                            GroundSpeed = Double.Parse(tempStr);
+                        }
 
-                    this.telnetClient.write("get /instrumentation/airspeed-indicator/indicated-speed-kt");
-                    tempStr = this.telnetClient.read();
-                    if (!(tempStr.Equals("ERR")))
-                    {
-                        AirSpeed = Double.Parse(tempStr);
-                    }
+                        telnetClient.write("get /instrumentation/airspeed-indicator/indicated-speed-kt");
+                        tempStr = telnetClient.read();
+                        if (!(tempStr.Equals("ERR")))
+                        {
+                            AirSpeed = Double.Parse(tempStr);
+                        }
 
-                    this.telnetClient.write("get /instrumentation/gps/indicated-altitude-ft");
-                    tempStr = this.telnetClient.read();
-                    if (!(tempStr.Equals("ERR")))
-                    {
-                        Altitude = Double.Parse(tempStr);
-                    }
+                        telnetClient.write("get /instrumentation/gps/indicated-altitude-ft");
+                        tempStr = telnetClient.read();
+                        if (!(tempStr.Equals("ERR")))
+                        {
+                            Altitude = Double.Parse(tempStr);
+                        }
 
-                    this.telnetClient.write("get /instrumentation/attitude-indicator/internal-roll-deg");
-                    tempStr = this.telnetClient.read();
-                    if (!(tempStr.Equals("ERR")))
-                    {
-                        InternalRoll = Double.Parse(tempStr);
-                    }
+                        telnetClient.write("get /instrumentation/attitude-indicator/internal-roll-deg");
+                        tempStr = telnetClient.read();
+                        if (!(tempStr.Equals("ERR")))
+                        {
+                            InternalRoll = Double.Parse(tempStr);
+                        }
 
-                    this.telnetClient.write("get /instrumentation/attitude-indicator/internal-pitch-deg");
-                    tempStr = this.telnetClient.read();
-                    if (!(tempStr.Equals("ERR")))
-                    {
-                        InternalPitch = Double.Parse(tempStr);
-                    }
-                    
-                    this.telnetClient.write("get /instrumentation/altimeter/indicated-altitude-ft");
-                    tempStr = this.telnetClient.read();
-                    if (!(tempStr.Equals("ERR")))
-                    {
-                        Altimeter = Double.Parse(tempStr);
-                    }
+                        telnetClient.write("get /instrumentation/attitude-indicator/internal-pitch-deg");
+                        tempStr = telnetClient.read();
+                        if (!(tempStr.Equals("ERR")))
+                        {
+                            InternalPitch = Double.Parse(tempStr);
+                        }
 
-                    Thread.Sleep(250); //SLEEP FOR 250 MS - that determines we will ask for details 4 times in a sec.
+                        telnetClient.write("get /instrumentation/altimeter/indicated-altitude-ft");
+                        tempStr = telnetClient.read();
+                        if (!(tempStr.Equals("ERR")))
+                        {
+                            Altimeter = Double.Parse(tempStr);
+                        }
+
+                        Thread.Sleep(250); //SLEEP FOR 250 MS - that determines we will ask for details 4 times in a sec.
+                    } catch (Exception e)
+                    {
+                        Err = true;
+                        CurrStatus = e.ToString();
+                        Thread.Sleep(250);
+                    }
                 }
             }).Start();
         }
         public void NotifyPropertyChanged(string propertyName)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         public void SendCommandToSimulator(string command)
         {
             if (!stop)
             {
                 mutex.WaitOne();
-                this.telnetClient.write(command);
+                telnetClient.write(command);
                 Debug.WriteLine("sent: " + command);
                 // DELETE AFTERWARDS ************************************************************
                 string str = this.telnetClient.read();
@@ -341,5 +332,30 @@ namespace FlightSimulatorApp.Model
                 mutex.ReleaseMutex();
             }
         }
+        public bool Err
+        {
+            get
+            {
+                return dm_error;
+            }
+            set
+            {
+                if (!dm_error && value)
+                {
+                    dm_error = value;
+                    NotifyPropertyChanged("Err");
+                }
+                else
+                {
+                    if (dm_error && !value)
+                    {
+                        dm_error = value;
+                    }
+                }
+            }
+        }
+        // CHECK IF NOTIFYPROPERTYCHANGED is needed **************************************************************
+        public string IPaddress { get { return dm_IPaddress; } set { dm_IPaddress = value; } }
+        public int Port { get { return dm_port; } set { dm_port = value; } }
     }
 }

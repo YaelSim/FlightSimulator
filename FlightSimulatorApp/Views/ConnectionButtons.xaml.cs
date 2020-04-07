@@ -20,19 +20,23 @@ namespace FlightSimulatorApp.Views
     public partial class ConnectionButtons : UserControl
     {
         private ConnectionButtonsViewModel connection_vm;
-        public ConnectionButtons()
+        public ConnectionButtons(ConnectionButtonsViewModel connectionButtons)
         {
             InitializeComponent();
-            this.connection_vm = new ConnectionButtonsViewModel();
+            this.connection_vm = connectionButtons;
             this.DataContext = this.connection_vm;
         }
         void OnClickConnect(object sender, RoutedEventArgs e)
         {
             ConnectButton.Foreground = new SolidColorBrush(Colors.Green);
+            //connection_vm.connect ---
+            // NEED TO UNDERSTAND HOW TO GET THE IP AND PORT.
         }
         void OnClickDisconnect(object sender, RoutedEventArgs e)
         {
             DisconnectButton.Foreground = new SolidColorBrush(Colors.Red);
+            //connection_vm.DISconnect ---
+            // NEED TO UNDERSTAND HOW TO GET THE IP AND PORT.
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using FlightSimulatorApp.Model;
 using FlightSimulatorApp.Utilities;
 using FlightSimulatorApp.Views;
+using FlightSimulatorApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace FlightSimulatorApp
 {
@@ -23,15 +23,16 @@ namespace FlightSimulatorApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(string ip, int port)
         {
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            Main_VM = (Application.Current as App).MainVM;
+            DataContext = Main_VM;
             InitializeComponent();
-            /*ITelnet tc = new TelnetClient();
-            ISimulatorModel model = new MySimulatorModel(tc);
-            model.connect("127.0.0.1", 5402);
-            model.start();
-            model.disconnect();*/
-            MapComponent map = new MapComponent();
+
+            Main_VM.Connect(ip, port);
+            Main_VM.Start();
         }
+        public MainViewModel Main_VM { get; internal set; }
     }
 }
