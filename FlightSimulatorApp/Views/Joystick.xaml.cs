@@ -22,12 +22,12 @@ namespace FlightSimulatorApp.Views
     /// </summary>
     public partial class Joystick : UserControl
     {
-        private readonly JoystickViewModel joystick_vm;
+        private JoystickViewModel joystick_vm;
         public static readonly DependencyProperty XProperty = DependencyProperty.Register("X", typeof(double), typeof(Joystick),
             new FrameworkPropertyMetadata(125.0, FrameworkPropertyMetadataOptions.AffectsRender, onXChanged));
         public static readonly DependencyProperty YProperty = DependencyProperty.Register("Y", typeof(double), typeof(Joystick),
             new FrameworkPropertyMetadata(125.0, FrameworkPropertyMetadataOptions.AffectsRender, onYChanged));
-        public Joystick(JoystickViewModel vm)
+        public Joystick()
         {
             InitializeComponent();
             centerPoint = new Point(Base.Width / 2 - KnobBase.Width / 2, Base.Height / 2 - KnobBase.Height / 2);
@@ -37,9 +37,10 @@ namespace FlightSimulatorApp.Views
             centerOfKnob = Knob.Resources["CenterKnob"] as Storyboard;
             X = Convert.ToDouble(GetValue(XProperty));
             Y = Convert.ToDouble(GetValue(YProperty));
-            //this.joystick_vm = new JoystickViewModel();
+        }
+        public void SetVM(JoystickViewModel vm)
+        {
             this.joystick_vm = vm;
-            this.DataContext = this.joystick_vm;
         }
         private static void onXChanged(DependencyObject JS, DependencyPropertyChangedEventArgs eventArgs)
         {
@@ -68,7 +69,6 @@ namespace FlightSimulatorApp.Views
                 knobPosition.X = X;
             }
         }
-
         public double Y
         {
             get { return Convert.ToDouble(GetValue(YProperty)); }

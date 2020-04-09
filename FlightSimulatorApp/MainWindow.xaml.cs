@@ -23,15 +23,41 @@ namespace FlightSimulatorApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        private DashboardComponent dashboard_view;
+        private MapComponent map_view;
+        private Joystick joystick_view;
+        private Sliders sliders_view;
+        private ConnectionButtons connectionButtons_view;
         public MainWindow(string ip, int port)
         {
-            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
             Main_VM = (Application.Current as App).MainVM;
             DataContext = Main_VM;
             InitializeComponent();
-
+            //Constructs all of the views' fields.
+            SetViews();
             Main_VM.Connect(ip, port);
             Main_VM.Start();
+        }
+        private void SetViews()
+        {
+            //var stackpanel = new StackPanel();
+            MapComponent map_view = new MapComponent();
+            map_view.DataContext = Main_VM.MapVM;
+            dashboard_view = new DashboardComponent();
+            dashboard_view.DataContext = Main_VM.DashboardVM;
+            joystick_view = new Joystick();
+            joystick_view.DataContext = Main_VM.JoystickVM;
+            sliders_view = new Sliders();
+            sliders_view.DataContext = Main_VM.JoystickVM;
+            connectionButtons_view = new ConnectionButtons();
+            connectionButtons_view.DataContext = Main_VM.ConnectionButtonsVM;
+            /*stackpanel.Children.Add(map_view);
+            stackpanel.Children.Add(dashboard_view);
+            stackpanel.Children.Add(sliders_view);
+            stackpanel.Children.Add(connectionButtons_view);
+            stackpanel.Children.Add(joystick_view);
+            this.Content = stackpanel;*/
         }
         public MainViewModel Main_VM { get; internal set; }
     }

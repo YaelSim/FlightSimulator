@@ -19,12 +19,9 @@ namespace FlightSimulatorApp.Views
     /// </summary>
     public partial class MapComponent : UserControl
     {
-        private readonly MapViewModel map_vm;
-        public MapComponent(MapViewModel vm)
+        public MapComponent()
         {
             InitializeComponent();
-            this.map_vm = vm;
-            this.DataContext = this.map_vm;
         }
     }
 }

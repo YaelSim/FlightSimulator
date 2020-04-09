@@ -1,6 +1,7 @@
 ﻿using FlightSimulatorApp.Model;
 using FlightSimulatorApp.Utilities;
 using FlightSimulatorApp.ViewModels;
+using FlightSimulatorApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -22,6 +23,9 @@ namespace FlightSimulatorApp
         {
             ISimulatorModel model = new MySimulatorModel(new TelnetClient());
             MainVM = new MainViewModel(model);
+            ConnectionButtonsViewModel connectionVM = new ConnectionButtonsViewModel(model);
+            ConnectionDefinitionsWindow window = new ConnectionDefinitionsWindow(connectionVM);
+            window.Show();
         }
     }
 }

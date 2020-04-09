@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlightSimulatorApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -17,14 +18,18 @@ namespace FlightSimulatorApp.Views
     /// </summary>
     public partial class ConnectionDefinitionsWindow : Window
     {
-        public ConnectionDefinitionsWindow()
+        private ConnectionButtonsViewModel vm;
+        public ConnectionDefinitionsWindow(ConnectionButtonsViewModel viewModel)
         {
             InitializeComponent();
+            vm = viewModel;
+            DataContext = vm;
         }
-
         public void ClickedOnConnect(object sender, RoutedEventArgs e)
         {
-
+            MainWindow mainWindow = new MainWindow(vm.IPaddress, vm.Port);
+            mainWindow.Show();
+            this.Close();
         }
     }
 }

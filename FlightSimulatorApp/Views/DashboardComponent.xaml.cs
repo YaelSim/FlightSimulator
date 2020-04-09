@@ -19,12 +19,9 @@ namespace FlightSimulatorApp.Views
     /// </summary>
     public partial class DashboardComponent : UserControl
     {
-        private DashboardViewModel dashboard_vm;
-        public DashboardComponent(DashboardViewModel dashboard)
+        public DashboardComponent()
         {
             InitializeComponent();
-            dashboard_vm = dashboard;
-            DataContext = this.dashboard_vm;
         }
     }
 }

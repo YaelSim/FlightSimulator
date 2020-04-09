@@ -20,7 +20,6 @@ namespace FlightSimulatorApp.ViewModels
             model = m;
             ConnectionButtons_vm = new ConnectionButtonsViewModel(this.model);
             Dashboard_vm = new DashboardViewModel(this.model);
-            //Sliders_vm = new SlidersViewModel(this.model);
             Map_vm = new MapViewModel(this.model);
             Joystick_vm = new JoystickViewModel(this.model);
         }
@@ -39,9 +38,6 @@ namespace FlightSimulatorApp.ViewModels
         {
             get { return Dashboard_vm; }
         }
-        /*public SlidersViewModel SlidersVM {
-            get { return Sliders_vm; }
-        }*/
         public JoystickViewModel JoystickVM
         {
             get { return Joystick_vm; }
@@ -52,7 +48,8 @@ namespace FlightSimulatorApp.ViewModels
         }
         public void Connect(string ip, int port)
         {
-            model.Connect(ip, port);
+            //model.Connect(ip, port);
+            ConnectionButtons_vm.connect(ConnectionButtons_vm.IPaddress, ConnectionButtons_vm.Port);
         }
         public void Start()
         {
