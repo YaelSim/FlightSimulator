@@ -38,7 +38,7 @@ namespace FlightSimulatorApp.ViewModels
             set
             {
                 this.model.Rudder = value;
-                NotifyPropertyChanged("VM_Ruuder");
+                NotifyPropertyChanged("VM_Rudder");
             }
         }
         public double VM_Elevator

@@ -20,11 +20,11 @@ namespace FlightSimulatorApp.Views
     public partial class ConnectionButtons : UserControl
     {
         private ConnectionButtonsViewModel connection_vm;
-        public ConnectionButtons(ConnectionButtonsViewModel connectionButtons)
+        public ConnectionButtons()
         {
             InitializeComponent();
-            this.connection_vm = connectionButtons;
-            this.DataContext = this.connection_vm;
+            //this.connection_vm = connectionButtons;
+            //this.DataContext = this.connection_vm;
         }
         void OnClickConnect(object sender, RoutedEventArgs e)
         {

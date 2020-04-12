@@ -41,8 +41,7 @@ namespace FlightSimulatorApp
         }
         private void SetViews()
         {
-            //var stackpanel = new StackPanel();
-            MapComponent map_view = new MapComponent();
+            /*MapComponent map_view = new MapComponent();
             map_view.DataContext = Main_VM.MapVM;
             dashboard_view = new DashboardComponent();
             dashboard_view.DataContext = Main_VM.DashboardVM;
@@ -52,12 +51,10 @@ namespace FlightSimulatorApp
             sliders_view.DataContext = Main_VM.JoystickVM;
             connectionButtons_view = new ConnectionButtons();
             connectionButtons_view.DataContext = Main_VM.ConnectionButtonsVM;
-            /*stackpanel.Children.Add(map_view);
-            stackpanel.Children.Add(dashboard_view);
-            stackpanel.Children.Add(sliders_view);
-            stackpanel.Children.Add(connectionButtons_view);
-            stackpanel.Children.Add(joystick_view);
-            this.Content = stackpanel;*/
+            */
+            ConnectionButtons.DataContext = Main_VM.ConnectionButtonsVM;
+            Dashboard.DataContext = Main_VM.DashboardVM;
+            FlightControls.DataContext = Main_VM.JoystickVM;
         }
         public MainViewModel Main_VM { get; internal set; }
     }

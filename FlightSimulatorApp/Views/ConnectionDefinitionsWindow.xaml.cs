@@ -19,10 +19,12 @@ namespace FlightSimulatorApp.Views
     public partial class ConnectionDefinitionsWindow : Window
     {
         private ConnectionButtonsViewModel vm;
-        public ConnectionDefinitionsWindow(ConnectionButtonsViewModel viewModel)
+        public ConnectionDefinitionsWindow()
         {
+            MainViewModel Main_VM = (Application.Current as App).MainVM;
             InitializeComponent();
-            vm = viewModel;
+            //vm = viewModel;
+            vm = Main_VM.ConnectionButtonsVM;
             DataContext = vm;
         }
         public void ClickedOnConnect(object sender, RoutedEventArgs e)

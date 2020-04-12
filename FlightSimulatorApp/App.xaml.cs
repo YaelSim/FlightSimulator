@@ -23,8 +23,8 @@ namespace FlightSimulatorApp
         {
             ISimulatorModel model = new MySimulatorModel(new TelnetClient());
             MainVM = new MainViewModel(model);
-            ConnectionButtonsViewModel connectionVM = new ConnectionButtonsViewModel(model);
-            ConnectionDefinitionsWindow window = new ConnectionDefinitionsWindow(connectionVM);
+            //ConnectionButtonsViewModel connectionVM = new ConnectionButtonsViewModel(model);
+            ConnectionDefinitionsWindow window = new ConnectionDefinitionsWindow();
             window.Show();
         }
     }

@@ -22,7 +22,7 @@ namespace FlightSimulatorApp.Views
     /// </summary>
     public partial class Joystick : UserControl
     {
-        private JoystickViewModel joystick_vm;
+        //private JoystickViewModel joystick_vm;
         public static readonly DependencyProperty XProperty = DependencyProperty.Register("X", typeof(double), typeof(Joystick),
             new FrameworkPropertyMetadata(125.0, FrameworkPropertyMetadataOptions.AffectsRender, onXChanged));
         public static readonly DependencyProperty YProperty = DependencyProperty.Register("Y", typeof(double), typeof(Joystick),
@@ -37,10 +37,6 @@ namespace FlightSimulatorApp.Views
             centerOfKnob = Knob.Resources["CenterKnob"] as Storyboard;
             X = Convert.ToDouble(GetValue(XProperty));
             Y = Convert.ToDouble(GetValue(YProperty));
-        }
-        public void SetVM(JoystickViewModel vm)
-        {
-            this.joystick_vm = vm;
         }
         private static void onXChanged(DependencyObject JS, DependencyPropertyChangedEventArgs eventArgs)
         {
@@ -64,7 +60,7 @@ namespace FlightSimulatorApp.Views
                 //Convert the value (double) to string, in order to pass it to the ViewModel.
                 string valAsString = value.ToString();
                 string cmd = "set /controls/flight/elevator " + valAsString;
-                this.joystick_vm.sendCommandToModel(cmd);
+                //this.joystick_vm.sendCommandToModel(cmd);
                 SetValue(XProperty, value);
                 knobPosition.X = X;
             }
@@ -81,7 +77,7 @@ namespace FlightSimulatorApp.Views
                 //Convert the value (double) to string, in order to pass it to the ViewModel.
                 string valAsString = value.ToString();
                 string cmd = "set /controls/flight/rudder " + valAsString;
-                this.joystick_vm.sendCommandToModel(cmd);
+                //this.joystick_vm.sendCommandToModel(cmd);
                 SetValue(YProperty, value);
                 knobPosition.Y = Y;
             }
@@ -146,6 +142,7 @@ namespace FlightSimulatorApp.Views
         }
         private void CenterKnob_Completed(object sender, EventArgs e)
         {
+            
         }
 
     }
