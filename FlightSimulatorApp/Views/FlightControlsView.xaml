@@ -10,7 +10,7 @@
     <Grid>
         <Canvas>
             <Views:Joystick X="125" Y="125" Height="400" Width="500" Canvas.Left="600" Canvas.Top="392" x:Name="Joystick"/>
-            <Views:Sliders Canvas.Left="916" Canvas.Top="225"></Views:Sliders>
+            <Views:Sliders Canvas.Left="916" Canvas.Top="225" x:Name="Sliders"></Views:Sliders>
         </Canvas>
         <Canvas Margin="0,-71,0,0">
             <Label x:Name="rudderValue" Content="{Binding Path=VM_Rudder, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="484,77,0,0" Height="32" Width="61" FontSize="16" Background="#FF858585" Canvas.Left="-233" Canvas.Top="-22"/>

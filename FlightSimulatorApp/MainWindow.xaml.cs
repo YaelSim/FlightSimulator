@@ -23,11 +23,6 @@ namespace FlightSimulatorApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private DashboardComponent dashboard_view;
-        private MapComponent map_view;
-        private Joystick joystick_view;
-        private Sliders sliders_view;
-        private ConnectionButtons connectionButtons_view;
         public MainWindow(string ip, int port)
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -41,19 +36,9 @@ namespace FlightSimulatorApp
         }
         private void SetViews()
         {
-            /*MapComponent map_view = new MapComponent();
-            map_view.DataContext = Main_VM.MapVM;
-            dashboard_view = new DashboardComponent();
-            dashboard_view.DataContext = Main_VM.DashboardVM;
-            joystick_view = new Joystick();
-            joystick_view.DataContext = Main_VM.JoystickVM;
-            sliders_view = new Sliders();
-            sliders_view.DataContext = Main_VM.JoystickVM;
-            connectionButtons_view = new ConnectionButtons();
-            connectionButtons_view.DataContext = Main_VM.ConnectionButtonsVM;
-            */
             ConnectionButtons.DataContext = Main_VM.ConnectionButtonsVM;
             Dashboard.DataContext = Main_VM.DashboardVM;
+            MapComponent.DataContext = Main_VM.MapVM;
             FlightControls.DataContext = Main_VM.JoystickVM;
         }
         public MainViewModel Main_VM { get; internal set; }

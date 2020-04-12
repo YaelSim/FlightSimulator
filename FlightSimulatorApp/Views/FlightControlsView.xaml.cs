@@ -29,8 +29,9 @@ namespace FlightSimulatorApp.Views
                 vm = Main_VM.JoystickVM;
                 //DataContext = vm;
                 Joystick.DataContext = vm;
+                Sliders.DataContext = vm;
                 //***********************************************
-                Joystick.MouseMove += Joystick_MouseMove;
+                //Joystick.MouseMove += Joystick_MouseMove;
             }
         }
 

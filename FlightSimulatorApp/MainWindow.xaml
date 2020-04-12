@@ -11,7 +11,7 @@
     <Canvas>
         <Grid Height="785" Width="1200" HorizontalAlignment="Left" VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal">
-                <Views:MapComponent></Views:MapComponent>
+                <Views:MapComponent x:Name="MapComponent"></Views:MapComponent>
             </StackPanel>
         </Grid>
         <Views:FlightControlsView x:Name="FlightControls"></Views:FlightControlsView>
