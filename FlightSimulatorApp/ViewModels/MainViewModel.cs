@@ -14,14 +14,14 @@ namespace FlightSimulatorApp.ViewModels
         private DashboardViewModel Dashboard_vm;
         //private SlidersViewModel Sliders_vm;
         private MapViewModel Map_vm;
-        private JoystickViewModel Joystick_vm;
+        private FlightControlsViewModel FlightControls_vm;
         public MainViewModel(ISimulatorModel m)
         {
             model = m;
             ConnectionButtons_vm = new ConnectionButtonsViewModel(this.model);
             Dashboard_vm = new DashboardViewModel(this.model);
             Map_vm = new MapViewModel(this.model);
-            Joystick_vm = new JoystickViewModel(this.model);
+            FlightControls_vm = new FlightControlsViewModel(this.model);
         }
         public void NotifyPropertyChanged(string propertyName)
         {
@@ -38,9 +38,9 @@ namespace FlightSimulatorApp.ViewModels
         {
             get { return Dashboard_vm; }
         }
-        public JoystickViewModel JoystickVM
+        public FlightControlsViewModel FlightControlsVM
         {
-            get { return Joystick_vm; }
+            get { return FlightControls_vm; }
         }
         public MapViewModel MapVM
         {

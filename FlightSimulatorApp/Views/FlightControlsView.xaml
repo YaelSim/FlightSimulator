@@ -13,10 +13,10 @@
             <Views:Sliders Canvas.Left="916" Canvas.Top="225" x:Name="Sliders"></Views:Sliders>
         </Canvas>
         <Canvas Margin="0,-71,0,0">
-            <Label x:Name="rudderValue" Content="{Binding Path=VM_Rudder, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="484,77,0,0" Height="32" Width="61" FontSize="16" Background="#FF858585" Canvas.Left="-233" Canvas.Top="-22"/>
-            <Label x:Name="rudder" Content="rudder : " Margin="398,77,0,0" Background="#FF858585" FontSize="16" FontWeight="Bold" Height="32" Width="81" Canvas.Left="-227" Canvas.Top="-22"/>
-            <Label x:Name="elevatorValue" Content="{Binding Path=VM_Elevator, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="80,328,0,0" Height="39" Width="64" Background="#FF858585" FontSize="16" Canvas.Left="432" Canvas.Top="-64"/>
-            <Label x:Name="elevator" Content="elevator : " Margin="-9,328,0,0" Background="#FF858585" FontSize="16" FontWeight="Bold" Height="39" Canvas.Left="441" Canvas.Top="-64" VerticalAlignment="Center"/>
+            <Label x:Name="rudderValue" Content="{Binding Path=VM_Rudder, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="32" Width="61" FontSize="16" Background="#FF858585" Canvas.Left="804" Canvas.Top="453"/>
+            <Label x:Name="rudder" Content="rudder : " Margin="950,475,0,0" Background="#FF858585" FontSize="16" FontWeight="Bold" Height="32" Width="81" Canvas.Left="-227" Canvas.Top="-22"/>
+            <Label x:Name="elevatorValue" Content="{Binding Path=VM_Elevator, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="40" Width="64" Background="#FF858585" FontSize="16" Canvas.Left="1118" Canvas.Top="646"/>
+            <Label x:Name="elevator" Content="elevator : " Background="#FF858585" FontSize="16" FontWeight="Bold" Height="40" Canvas.Left="1034" Canvas.Top="646" VerticalAlignment="Center"/>
         </Canvas>
     </Grid>
 </UserControl>

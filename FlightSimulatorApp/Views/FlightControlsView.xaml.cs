@@ -19,14 +19,14 @@ namespace FlightSimulatorApp.Views
     /// </summary>
     public partial class FlightControlsView : UserControl
     {
-        private JoystickViewModel vm;
+        private FlightControlsViewModel vm;
         public FlightControlsView()
         {
             InitializeComponent();
             if (Application.Current is App)
             {
                 Main_VM = (Application.Current as App).MainVM;
-                vm = Main_VM.JoystickVM;
+                vm = Main_VM.FlightControlsVM;
                 //DataContext = vm;
                 Joystick.DataContext = vm;
                 Sliders.DataContext = vm;

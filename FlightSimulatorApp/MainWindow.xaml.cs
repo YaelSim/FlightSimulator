@@ -39,7 +39,7 @@ namespace FlightSimulatorApp
             ConnectionButtons.DataContext = Main_VM.ConnectionButtonsVM;
             Dashboard.DataContext = Main_VM.DashboardVM;
             MapComponent.DataContext = Main_VM.MapVM;
-            FlightControls.DataContext = Main_VM.JoystickVM;
+            FlightControls.DataContext = Main_VM.FlightControlsVM;
         }
         public MainViewModel Main_VM { get; internal set; }
     }

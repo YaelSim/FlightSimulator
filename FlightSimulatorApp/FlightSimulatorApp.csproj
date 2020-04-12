@@ -63,7 +63,7 @@
     <Compile Include="ViewModels\ConnectionButtonsViewModel.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\ExampleViewModel.cs" />
-    <Compile Include="ViewModels\JoystickViewModel.cs" />
+    <Compile Include="ViewModels\FlightControlsViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MapViewModel.cs" />
     <Compile Include="ViewModels\SlidersViewModel.cs" />

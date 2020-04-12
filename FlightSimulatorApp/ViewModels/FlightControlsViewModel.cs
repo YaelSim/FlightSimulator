@@ -6,11 +6,11 @@ using System.Text;
 
 namespace FlightSimulatorApp.ViewModels
 {
-    public partial class JoystickViewModel : INotifyPropertyChanged
+    public partial class FlightControlsViewModel : INotifyPropertyChanged
     {
         private ISimulatorModel model;
         public event PropertyChangedEventHandler PropertyChanged;
-        public JoystickViewModel(ISimulatorModel m)
+        public FlightControlsViewModel(ISimulatorModel m)
         {
             this.model = m;
             this.model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e) {
