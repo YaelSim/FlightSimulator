@@ -19,13 +19,17 @@ namespace FlightSimulatorApp.Views
     /// </summary>
     public partial class Sliders : UserControl
     {
-        //private readonly JoystickViewModel joystick_vm;
+        private readonly FlightControlsViewModel vm;
         public Sliders()
         {
             InitializeComponent();
-
-            //joystick_vm = vm;
-            //DataContext = joystick_vm;
+            if (Application.Current is App)
+            {
+                Main_VM = (Application.Current as App).MainVM;
+                vm = Main_VM.FlightControlsVM;
+                //***********************************************
+                //Joystick.MouseMove += Joystick_MouseMove;
+            }
         }
         public void ValueChangedAileron(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
@@ -41,7 +45,7 @@ namespace FlightSimulatorApp.Views
             //joystick_vm.sendCommandToModel(cmd);
             //CHECK IF THE FOLLOWING LINE IS NEEDED *******************************
             //this.sliders_vm.VM_Aileron = val;
-            //joystick_vm.VM_Aileron = val;
+            vm.VM_Aileron = val;
         }
         public void ValueChangedThrottle(object sender, RoutedPropertyChangedEventArgs<double> e) {
             double val = Convert.ToDouble(e.NewValue);
@@ -56,7 +60,9 @@ namespace FlightSimulatorApp.Views
             //CHECK IF THE FOLLOWING LINE IS NEEDED *******************************
            // this.sliders_vm.VM_Throttle = val;
             //joystick_vm.sendCommandToModel(cmd);
-            //joystick_vm.VM_Throttle = val;
+            vm.VM_Throttle = val;
         }
+        public MainViewModel Main_VM { get; internal set; }
+
     }
 }

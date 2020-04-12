@@ -20,13 +20,17 @@ namespace FlightSimulatorApp.ViewModels
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public void sendCommandToModel(string cmd)
+        public void SendCommandToModel(string cmd)
         {
             this.model.SendCommandToSimulator(cmd);
         }
-        public void connect(string ip, int port)
+        public void Connect(string ip, int port)
         {
             model.Connect(ip, port);
+        }
+        public void Disconnect()
+        {
+            model.Disconnect();
         }
         public string VM_CurrStatus { get { return this.model.CurrStatus; } }
         public string IPaddress

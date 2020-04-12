@@ -19,12 +19,9 @@ namespace FlightSimulatorApp.ViewModels
         }
         public void NotifyPropertyChanged(string propertyName)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public void sendCommandToModel(string cmd)
+        public void SendCommandToModel(string cmd)
         {
             this.model.SendCommandToSimulator(cmd);
         }

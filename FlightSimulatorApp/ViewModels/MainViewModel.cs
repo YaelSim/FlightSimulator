@@ -49,7 +49,7 @@ namespace FlightSimulatorApp.ViewModels
         public void Connect(string ip, int port)
         {
             //model.Connect(ip, port);
-            ConnectionButtons_vm.connect(ConnectionButtons_vm.IPaddress, ConnectionButtons_vm.Port);
+            ConnectionButtons_vm.Connect(ConnectionButtons_vm.IPaddress, ConnectionButtons_vm.Port);
         }
         public void Start()
         {

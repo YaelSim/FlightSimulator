@@ -13,7 +13,6 @@ namespace FlightSimulatorApp.ViewModels
 
         public DashboardViewModel(ISimulatorModel m)
         {
-            //this.model = MySimulatorModel.GetSimulatorModel;
             this.model = m;
             this.model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e) {
                 NotifyPropertyChanged("VM_" + e.PropertyName);

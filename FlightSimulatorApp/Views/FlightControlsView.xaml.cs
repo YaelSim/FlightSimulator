@@ -27,21 +27,17 @@ namespace FlightSimulatorApp.Views
             {
                 Main_VM = (Application.Current as App).MainVM;
                 vm = Main_VM.FlightControlsVM;
-                //DataContext = vm;
                 Joystick.DataContext = vm;
                 Sliders.DataContext = vm;
                 //***********************************************
                 //Joystick.MouseMove += Joystick_MouseMove;
             }
         }
-
         private void Joystick_MouseMove(object sender, MouseEventArgs e)
         {
             throw new NotImplementedException();
         }
 
         public MainViewModel Main_VM { get; internal set; }
-        
-
     }
 }

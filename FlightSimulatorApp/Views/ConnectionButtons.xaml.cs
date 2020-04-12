@@ -19,12 +19,15 @@ namespace FlightSimulatorApp.Views
     /// </summary>
     public partial class ConnectionButtons : UserControl
     {
-        private ConnectionButtonsViewModel connection_vm;
+        private ConnectionButtonsViewModel vm;
         public ConnectionButtons()
         {
             InitializeComponent();
-            //this.connection_vm = connectionButtons;
-            //this.DataContext = this.connection_vm;
+            if (Application.Current is App)
+            {
+                Main_VM = (Application.Current as App).MainVM;
+                vm = Main_VM.ConnectionButtonsVM;
+            }
         }
         void OnClickConnect(object sender, RoutedEventArgs e)
         {
@@ -38,5 +41,7 @@ namespace FlightSimulatorApp.Views
             //connection_vm.DISconnect ---
             // NEED TO UNDERSTAND HOW TO GET THE IP AND PORT.
         }
+        public MainViewModel Main_VM { get; internal set; }
+
     }
 }

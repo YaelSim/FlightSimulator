@@ -23,7 +23,6 @@ namespace FlightSimulatorApp.Views
         {
             MainViewModel Main_VM = (Application.Current as App).MainVM;
             InitializeComponent();
-            //vm = viewModel;
             vm = Main_VM.ConnectionButtonsVM;
             DataContext = vm;
         }
