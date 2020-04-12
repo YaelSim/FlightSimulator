@@ -32,14 +32,23 @@ namespace FlightSimulatorApp.Views
         void OnClickConnect(object sender, RoutedEventArgs e)
         {
             ConnectButton.Foreground = new SolidColorBrush(Colors.Green);
-            //connection_vm.connect ---
-            // NEED TO UNDERSTAND HOW TO GET THE IP AND PORT.
+            ConnectionDefinitionsWindow window = new ConnectionDefinitionsWindow();
+            window.Show();
+            //Close the current window!
+            if (Application.Current is App)
+            {
+                (Application.Current as App).MainWindowView.Close();
+            }
         }
         void OnClickDisconnect(object sender, RoutedEventArgs e)
         {
             DisconnectButton.Foreground = new SolidColorBrush(Colors.Red);
-            //connection_vm.DISconnect ---
-            // NEED TO UNDERSTAND HOW TO GET THE IP AND PORT.
+            string curr = vm.VM_CurrStatus;
+            if (!vm.VM_CurrStatus.Equals("Disconnected"))
+            {
+                vm.VM_CurrStatus = "Disconnected";
+                vm.Disconnect();
+            }
         }
         public MainViewModel Main_VM { get; internal set; }
 

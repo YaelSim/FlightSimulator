@@ -18,12 +18,13 @@ namespace FlightSimulatorApp
     public partial class App : Application
     {
         public MainViewModel MainVM { get; internal set; }
+        public MainWindow MainWindowView { get; set; }
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             ISimulatorModel model = new MySimulatorModel(new TelnetClient());
             MainVM = new MainViewModel(model);
-            //ConnectionButtonsViewModel connectionVM = new ConnectionButtonsViewModel(model);
+
             ConnectionDefinitionsWindow window = new ConnectionDefinitionsWindow();
             window.Show();
         }

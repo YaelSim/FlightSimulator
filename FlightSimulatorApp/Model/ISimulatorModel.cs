@@ -39,6 +39,5 @@ namespace FlightSimulatorApp.Model
         string CurrStatus { get; set; }
         string IPaddress { get; set; }
         int Port { get; set; }
-
     }
 }

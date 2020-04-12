@@ -17,9 +17,9 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBlock FontSize="14" Margin="20,20,30,30" Grid.Row="2">IP Address:</TextBlock>
-        <TextBox x:Name="txtIP" Grid.Row="2" Margin="100,15,50,75" BorderBrush="Gray" BorderThickness="3" Text="{Binding IPaddress, Mode=OneWay}"></TextBox>
+        <TextBox x:Name="txtIP" Grid.Row="2" Margin="100,15,50,75" BorderBrush="Gray" BorderThickness="3" Text="{Binding VM_IPaddress, Mode=TwoWay}"></TextBox>
         <TextBlock FontSize="14" Margin="20,75,30,30" Grid.Row="2">Port:</TextBlock>
-        <TextBox x:Name="txtPort" Grid.Row="2" Margin="100,65,50,25" BorderBrush="Gray" BorderThickness="3" Text="{Binding Port, Mode=OneWay}"></TextBox>
+        <TextBox x:Name="txtPort" Grid.Row="2" Margin="100,65,50,25" BorderBrush="Gray" BorderThickness="3" Text="{Binding VM_Port, Mode=TwoWay}"></TextBox>
         <TextBlock Text="Welome to Our FlightSimulator App!" Grid.Row="0" FontSize="20" TextAlignment="Center" FontWeight="Bold" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="center" HorizontalAlignment="Center"/>
         <Button x:Name="Connect" Click ="ClickedOnConnect" Grid.Row="3" Height="20" Width="100" Content="Connect"/>
         <TextBlock Text="Please enter an IP address and a port:" FontSize="18" Grid.Row="1" TextAlignment="Center"/>

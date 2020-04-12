@@ -233,11 +233,13 @@ namespace FlightSimulatorApp.Model
         public void Connect(string ip, int port)
         {
             telnetClient.connect(ip, port);
+            CurrStatus = "Connected";
         }
         public void Disconnect()
         {
             stop = true;
             telnetClient.disconnect();
+            CurrStatus = "Disconnected";
         }
         public void Start()
         {

@@ -32,8 +32,14 @@ namespace FlightSimulatorApp.ViewModels
         {
             model.Disconnect();
         }
-        public string VM_CurrStatus { get { return this.model.CurrStatus; } }
-        public string IPaddress
+        public string VM_CurrStatus { get { return model.CurrStatus; }
+            set
+            {
+                model.CurrStatus = value;
+                NotifyPropertyChanged("CurrStatus");
+            }
+        }
+        public string VM_IPaddress
         {
             get { return model.IPaddress; }
             set
@@ -42,7 +48,7 @@ namespace FlightSimulatorApp.ViewModels
                 NotifyPropertyChanged("IPaddress");
             }
         }
-        public int Port
+        public int VM_Port
         {
             get { return model.Port; }
             set

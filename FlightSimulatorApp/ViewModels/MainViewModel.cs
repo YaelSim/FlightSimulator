@@ -12,7 +12,6 @@ namespace FlightSimulatorApp.ViewModels
         private ISimulatorModel model;
         private ConnectionButtonsViewModel ConnectionButtons_vm;
         private DashboardViewModel Dashboard_vm;
-        //private SlidersViewModel Sliders_vm;
         private MapViewModel Map_vm;
         private FlightControlsViewModel FlightControls_vm;
         public MainViewModel(ISimulatorModel m)
@@ -25,10 +24,7 @@ namespace FlightSimulatorApp.ViewModels
         }
         public void NotifyPropertyChanged(string propertyName)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         //Getters
         public ConnectionButtonsViewModel ConnectionButtonsVM {
@@ -48,8 +44,7 @@ namespace FlightSimulatorApp.ViewModels
         }
         public void Connect(string ip, int port)
         {
-            //model.Connect(ip, port);
-            ConnectionButtons_vm.Connect(ConnectionButtons_vm.IPaddress, ConnectionButtons_vm.Port);
+            ConnectionButtons_vm.Connect(ConnectionButtons_vm.VM_IPaddress, ConnectionButtons_vm.VM_Port);
         }
         public void Start()
         {

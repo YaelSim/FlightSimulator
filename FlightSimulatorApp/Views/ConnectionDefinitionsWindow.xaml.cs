@@ -21,15 +21,17 @@ namespace FlightSimulatorApp.Views
         private ConnectionButtonsViewModel vm;
         public ConnectionDefinitionsWindow()
         {
-            MainViewModel Main_VM = (Application.Current as App).MainVM;
             InitializeComponent();
+            MainViewModel Main_VM = (Application.Current as App).MainVM;
             vm = Main_VM.ConnectionButtonsVM;
             DataContext = vm;
         }
         public void ClickedOnConnect(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow(vm.IPaddress, vm.Port);
-            mainWindow.Show();
+            //MainWindow mainWindow = new MainWindow(vm.IPaddress, vm.Port);
+            //mainWindow.Show();
+            (Application.Current as App).MainWindowView = new MainWindow(vm.VM_IPaddress, vm.VM_Port);
+            (Application.Current as App).MainWindowView.Show();
             this.Close();
         }
     }
