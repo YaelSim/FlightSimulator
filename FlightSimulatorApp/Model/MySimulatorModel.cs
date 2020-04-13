@@ -11,8 +11,6 @@ namespace FlightSimulatorApp.Model
 {
     public class MySimulatorModel : ISimulatorModel
     {
-        //Implementation of singleton to promise that we have exactly ONE SIMULATORMODEL
-        //private static MySimulatorModel instance = null;
         private ITelnet telnetClient;
         private volatile bool stop;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -232,14 +230,14 @@ namespace FlightSimulatorApp.Model
         }
         public void Connect(string ip, int port)
         {
-            telnetClient.connect(ip, port);
             CurrStatus = "Connected";
+            telnetClient.connect(ip, port);
         }
         public void Disconnect()
         {
             stop = true;
-            telnetClient.disconnect();
             CurrStatus = "Disconnected";
+            telnetClient.disconnect();
         }
         public void Start()
         {

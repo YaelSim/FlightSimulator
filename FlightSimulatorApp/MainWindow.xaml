@@ -16,6 +16,6 @@
         </Grid>
         <Views:FlightControlsView x:Name="FlightControls"></Views:FlightControlsView>
         <Views:DashboardComponent Canvas.Left="697" Canvas.Top="156" x:Name="Dashboard"></Views:DashboardComponent>
-        <Views:ConnectionButtons Canvas.Left="697" Height="208" Width="344" Canvas.Top="-5" x:Name="ConnectionButtons"/>
+        <Views:ConnectionButtons Canvas.Left="655" Height="208" Width="450" Canvas.Top="-5" x:Name="ConnectionButtons"/>
     </Canvas>
 </Window>

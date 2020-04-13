@@ -36,7 +36,7 @@ namespace FlightSimulatorApp.ViewModels
             set
             {
                 model.CurrStatus = value;
-                NotifyPropertyChanged("CurrStatus");
+                NotifyPropertyChanged("VM_CurrStatus");
             }
         }
         public string VM_IPaddress
@@ -45,7 +45,7 @@ namespace FlightSimulatorApp.ViewModels
             set
             {
                 model.IPaddress = value;
-                NotifyPropertyChanged("IPaddress");
+                NotifyPropertyChanged("VM_IPaddress");
             }
         }
         public int VM_Port
@@ -54,7 +54,7 @@ namespace FlightSimulatorApp.ViewModels
             set
             {
                 model.Port = value;
-                NotifyPropertyChanged("Port");
+                NotifyPropertyChanged("VM_Port");
             }
         }
     }

@@ -92,8 +92,8 @@ namespace FlightSimulatorApp.Utilities
             {
                 Console.WriteLine("Unexpected exception : {0}", e.ToString());
             }
-            //If any exception was caught, return null
-            return null;
+            //If any exception was caught, return "0"
+            return "0";
         }
         public void write(string commandStr)
         {
