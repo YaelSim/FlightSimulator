@@ -2,12 +2,15 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 
 namespace FlightSimulatorApp.Utilities
 {
     public class TelnetClient : ITelnet
     {
         private Socket sender;
+        //private int timeout = 1000;
+        private Mutex mutex = new Mutex();
 
         // Connect to a remote device.  
         public void connect(string ip, int port)
@@ -71,6 +74,7 @@ namespace FlightSimulatorApp.Utilities
         {
             try
             {
+                mutex.WaitOne();
                 // Data buffer for incoming data.  
                 byte[] bytes = new byte[1024];
 
@@ -92,6 +96,10 @@ namespace FlightSimulatorApp.Utilities
             {
                 Console.WriteLine("Unexpected exception : {0}", e.ToString());
             }
+            finally
+            {
+                mutex.ReleaseMutex();
+            }
             //If any exception was caught, return "0"
             return "0";
         }
@@ -99,6 +107,7 @@ namespace FlightSimulatorApp.Utilities
         {
             try
             {
+                mutex.WaitOne();
                 // Encode the data string into a byte array.  
                 //byte[] messageBytesArr = Encoding.ASCII.GetBytes(commandStr + "<EOF>");
                 byte[] messageBytesArr = Encoding.ASCII.GetBytes(commandStr + "\n");
@@ -117,6 +126,10 @@ namespace FlightSimulatorApp.Utilities
             catch (Exception e)
             {
                 Console.WriteLine("Unexpected exception : {0}", e.ToString());
+            }
+            finally
+            {
+                mutex.ReleaseMutex();
             }
         }
     }

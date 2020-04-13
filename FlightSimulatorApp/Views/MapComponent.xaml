@@ -10,9 +10,9 @@
     <Grid x:Name="LayoutRoot" Background="White">
         <m:Map x:Name="MapComp"
                CredentialsProvider="iQ6P9CGruXJuhLcv7Tt8~9w2A7mzg2SgfxshTDszxYg~AnJCRfLz3G6jq1EDmMrs0XSw3L_tjLf2LN7Uw6Xhm7h9seLvJIfvKSK6uJAM74Ik"
-               Mode="AerialWithLabels" Center="47.620574,-122.34942" ZoomLevel="12" Height="785" Width="650" BorderThickness="2">
-            <m:Pushpin x:Name="pin" m:MapLayer.Position="32.034, 34.5237" Location="{Binding VM_Location, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
-                <m:Pushpin.Background>
+               Mode="AerialWithLabels" Center="32.002644, 34.888781" ZoomLevel="12" Height="785" Width="650" BorderThickness="2">
+            <m:Pushpin x:Name="pin" m:MapLayer.Position="{Binding VM_Location}">
+            <m:Pushpin.Background>
                     <ImageBrush Stretch="UniformToFill" ImageSource="planeicon.png"/>
                 </m:Pushpin.Background>
             </m:Pushpin>

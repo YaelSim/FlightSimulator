@@ -33,15 +33,15 @@ namespace FlightSimulatorApp.Model
         private double dm_altimeter;
 
         //Joystick's + Sliders' properties as data members
-        private double dm_rudder = 0;
-        private double dm_elevator = 0;
+        private double dm_rudder = 10;
+        private double dm_elevator = 10;
         private double dm_aileron = 0;
         private double dm_throttle = 0;
 
         //Map's properties as data members
-        private double dm_latitude = 0;
-        private double dm_longitude = 0;
-        private Location dm_location = new Location(0, 0);
+        private double dm_latitude = 32.002644;
+        private double dm_longitude = 34.888781;
+        private Location dm_location = new Location(32.002644, 34.888781);
         public MySimulatorModel(ITelnet tc)
         {
             this.telnetClient = tc;
@@ -304,6 +304,22 @@ namespace FlightSimulatorApp.Model
                         {
                             Altimeter = Double.Parse(tempStr);
                         }
+
+                        telnetClient.write("get /position/longitude-deg\n");
+                        tempStr = telnetClient.read();
+                        if (!(tempStr.Equals("ERR")))
+                        {
+                            Longitude = Double.Parse(tempStr);
+                        }
+
+                        telnetClient.write("get /position/latitude-deg\n");
+                        tempStr = telnetClient.read();
+                        if (!(tempStr.Equals("ERR")))
+                        {
+                            Latitude = Double.Parse(tempStr);
+                        }
+
+                        Location = new Location(Latitude, Longitude);
 
                         Thread.Sleep(250); //SLEEP FOR 250 MS - that determines we will ask for details 4 times in a sec.
                     } catch (Exception e)
