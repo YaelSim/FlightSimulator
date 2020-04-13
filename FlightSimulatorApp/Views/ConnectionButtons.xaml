@@ -8,17 +8,17 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100" />
-            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="105.6" />
+            <ColumnDefinition Width="694.4" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="62" />
-            <RowDefinition Height="138" />
+            <RowDefinition Height="80" />
+            <RowDefinition Height="200" />
         </Grid.RowDefinitions>
 
-        <Button Foreground = "Gray" Click = "OnClickConnect" VerticalAlignment="Center" x:Name = "ConnectButton" Height="20">Connect</Button>
-        <Button Foreground = "Gray" Click = "OnClickDisconnect" Grid.Column="1" VerticalAlignment="Center" x:Name = "DisconnectButton" Height="20">Disconnect</Button>
-        <TextBlock Grid.Row="1" TextWrapping="Wrap"  Text="Status:  " VerticalAlignment="Top" FontSize="18" TextAlignment="Center" HorizontalAlignment="Center" FontWeight ="Bold" Height="24" Width="66"/>
-        <TextBlock FontSize="16" TextAlignment="Center" Text="{Binding Path = VM_CurrStatus, Mode=OneWay, StringFormat={}{0}, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1" Height="20" Width="0"/>
+        <Button Foreground = "Gray" Click = "OnClickConnect" VerticalAlignment="Center" x:Name = "ConnectButton" Height="23"  Grid.Column="1" Margin="0.4,31,620,26.8">Connect</Button>
+        <Button Foreground = "Gray" Click = "OnClickDisconnect" Grid.Column="1" VerticalAlignment="Center" x:Name = "DisconnectButton" Height="23" Margin="72.4,31,548,26.8" RenderTransformOrigin="0.06,0.6">Disconnect</Button>
+        <!--<TextBlock Grid.Row="1" TextWrapping="Wrap"  Text="Status:  " VerticalAlignment="Top" FontSize="18" TextAlignment="Center" HorizontalAlignment="Center" FontWeight ="Bold" Height="24" Width="66"/>-->
+        <TextBlock FontSize="18" FontWeight="Bold" TextAlignment="Left" Padding="6" Text="{Binding Path = VM_CurrStatus, Mode=OneWay, StringFormat=Status: {0}, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="100" Width="800" Margin="0,0.2,0,0" Grid.ColumnSpan="2" Grid.Row="1"/>
     </Grid>
 </UserControl>
