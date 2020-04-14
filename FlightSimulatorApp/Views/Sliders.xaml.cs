@@ -27,17 +27,15 @@ namespace FlightSimulatorApp.Views
             {
                 Main_VM = (Application.Current as App).MainVM;
                 vm = Main_VM.FlightControlsVM;
-                //***********************************************
-                //Joystick.MouseMove += Joystick_MouseMove;
             }
         }
         public void ValueChangedAileron(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             double val = Convert.ToDouble(e.NewValue);
-            val *= 100;
+            val *= 1000;
             int valAsInt = (int)val;
             val = (double)valAsInt;
-            val /= 100;
+            val /= 1000;
             //Convert the value (double) to string, in order to pass it to the ViewModel.
             string valAsString = val.ToString();
             string cmd = "set /controls/flight/aileron " + valAsString;
@@ -46,10 +44,10 @@ namespace FlightSimulatorApp.Views
         }
         public void ValueChangedThrottle(object sender, RoutedPropertyChangedEventArgs<double> e) {
             double val = Convert.ToDouble(e.NewValue);
-            val *= 100;
+            val *= 1000;
             int valAsInt = (int)val;
             val = (double)valAsInt;
-            val /= 100;
+            val /= 1000;
             //Convert the value (double) to string, in order to pass it to the ViewModel.
             string valAsString = val.ToString();
             string cmd = "set /controls/engines/current-engine/throttle " + valAsString;

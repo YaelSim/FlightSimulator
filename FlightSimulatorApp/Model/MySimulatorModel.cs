@@ -130,7 +130,16 @@ namespace FlightSimulatorApp.Model
             get { return dm_rudder; }
             set
             {
-                dm_rudder = value;
+                double newVal = SetNewValueForRudder(value);
+                if (newVal < (-1))
+                {
+                    newVal = (-1);
+                }
+                else if (newVal > 1)
+                {
+                    newVal = 1;
+                }
+                dm_rudder = newVal;
                 NotifyPropertyChanged("Rudder");
             }
         }
@@ -138,10 +147,45 @@ namespace FlightSimulatorApp.Model
             get { return dm_elevator; }
             set
             {
-                dm_elevator = value;
+                double newVal = SetNewValueForElevator(value);
+                if (newVal < (-1))
+                {
+                    newVal = (-1);
+                }
+                else if (newVal > 1)
+                {
+                    newVal = 1;
+                }
+                dm_elevator = newVal;
                 NotifyPropertyChanged("Elevator");
             }
         }
+
+        public double SetNewValueForRudder(double value)
+        {
+            double rangeXaml = 250;
+            double rangeProperty = 2;
+            double proportionalVal = value / rangeXaml;
+            double newVal = ((-1) + (proportionalVal * rangeProperty));
+            newVal *= 1000;
+            int valAsInt = (int)newVal;
+            newVal = (double)valAsInt;
+            newVal /= 1000;
+            return newVal;
+        }
+        public double SetNewValueForElevator(double value)
+        {
+            double rangeXaml = 250;
+            double rangeProperty = 2;
+            double proportionalVal = value / rangeXaml;
+            double newVal = (1 - (proportionalVal * rangeProperty));
+            newVal *= 1000;
+            int valAsInt = (int)newVal;
+            newVal = (double)valAsInt;
+            newVal /= 1000;
+            return newVal;
+        }
+
         public double Aileron {
             get { return dm_aileron; }
             set

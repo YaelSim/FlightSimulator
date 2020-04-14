@@ -34,17 +34,9 @@ namespace FlightSimulatorApp.ViewModels
             }
             set
             {
-                if (value < (-1))
-                {
-                    value = (-1);
-                }
-                else if (value > 1)
-                {
-                    value = 1;
-                }
-                this.model.Rudder = value;
+                model.Rudder = value;
                 //Convert the value (double) to string, in order to pass it to the ViewModel.
-                string valAsString = value.ToString();
+                string valAsString = model.Rudder.ToString();
                 string cmd = "set /controls/flight/rudder " + valAsString;
                 SendCommandToModel(cmd);
                 NotifyPropertyChanged("VM_Rudder");
@@ -58,21 +50,37 @@ namespace FlightSimulatorApp.ViewModels
             }
             set
             {
-                if (value < (-1))
-                {
-                    value = (-1);
-                }
-                else if (value > 1)
-                {
-                    value = 1;
-                }
-                this.model.Elevator = value;
+                model.Elevator = value;
                 //Convert the value (double) to string, in order to pass it to the ViewModel.
-                string valAsString = value.ToString();
+                string valAsString = model.Elevator.ToString();
                 string cmd = "set /controls/flight/elevator " + valAsString;
                 SendCommandToModel(cmd);
                 NotifyPropertyChanged("VM_Elevator");
             }
+        }
+        public double VM_X
+        {
+            get {
+                double value = VM_Rudder;
+                double rangeXaml = 250;
+                double rangeProperty = 2;
+                double proportionalVal = (value + 1) / rangeProperty;
+                double newVal = proportionalVal * rangeXaml;
+                return newVal;
+            }
+            set { VM_Rudder = value; }
+        }
+        public double VM_Y
+        {
+            get {
+                double value = VM_Elevator;
+                double rangeXaml = 250;
+                double rangeProperty = 2;
+                double proportionalVal = (1 - value) / rangeProperty;
+                double newVal = proportionalVal * rangeXaml;
+                return newVal;
+            }
+            set { VM_Elevator = value; }
         }
         //Sliders' Properties
         public double VM_Aileron
