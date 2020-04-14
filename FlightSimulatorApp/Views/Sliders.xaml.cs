@@ -40,11 +40,8 @@ namespace FlightSimulatorApp.Views
             val /= 100;
             //Convert the value (double) to string, in order to pass it to the ViewModel.
             string valAsString = val.ToString();
-            string cmd = "set /controls/engines/current-engine/throttle " + valAsString;
-            //this.sliders_vm.sendCommandToModel(cmd);
-            //joystick_vm.sendCommandToModel(cmd);
-            //CHECK IF THE FOLLOWING LINE IS NEEDED *******************************
-            //this.sliders_vm.VM_Aileron = val;
+            string cmd = "set /controls/flight/aileron " + valAsString;
+            vm.SendCommandToModel(cmd);
             vm.VM_Aileron = val;
         }
         public void ValueChangedThrottle(object sender, RoutedPropertyChangedEventArgs<double> e) {
@@ -56,10 +53,7 @@ namespace FlightSimulatorApp.Views
             //Convert the value (double) to string, in order to pass it to the ViewModel.
             string valAsString = val.ToString();
             string cmd = "set /controls/engines/current-engine/throttle " + valAsString;
-           // this.sliders_vm.sendCommandToModel(cmd);
-            //CHECK IF THE FOLLOWING LINE IS NEEDED *******************************
-           // this.sliders_vm.VM_Throttle = val;
-            //joystick_vm.sendCommandToModel(cmd);
+            vm.SendCommandToModel(cmd);
             vm.VM_Throttle = val;
         }
         public MainViewModel Main_VM { get; internal set; }

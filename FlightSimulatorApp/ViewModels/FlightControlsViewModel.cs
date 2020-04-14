@@ -34,7 +34,19 @@ namespace FlightSimulatorApp.ViewModels
             }
             set
             {
+                if (value < (-1))
+                {
+                    value = (-1);
+                }
+                else if (value > 1)
+                {
+                    value = 1;
+                }
                 this.model.Rudder = value;
+                //Convert the value (double) to string, in order to pass it to the ViewModel.
+                string valAsString = value.ToString();
+                string cmd = "set /controls/flight/rudder " + valAsString;
+                SendCommandToModel(cmd);
                 NotifyPropertyChanged("VM_Rudder");
             }
         }
@@ -46,7 +58,19 @@ namespace FlightSimulatorApp.ViewModels
             }
             set
             {
+                if (value < (-1))
+                {
+                    value = (-1);
+                }
+                else if (value > 1)
+                {
+                    value = 1;
+                }
                 this.model.Elevator = value;
+                //Convert the value (double) to string, in order to pass it to the ViewModel.
+                string valAsString = value.ToString();
+                string cmd = "set /controls/flight/elevator " + valAsString;
+                SendCommandToModel(cmd);
                 NotifyPropertyChanged("VM_Elevator");
             }
         }
@@ -59,6 +83,14 @@ namespace FlightSimulatorApp.ViewModels
             }
             set
             {
+                if (value < (-1))
+                {
+                    value = (-1);
+                }
+                else if (value > 1)
+                {
+                    value = 1;
+                }
                 this.model.Aileron = value;
                 NotifyPropertyChanged("VM_Aileron");
             }
@@ -71,6 +103,14 @@ namespace FlightSimulatorApp.ViewModels
             }
             set
             {
+                if (value < 0)
+                {
+                    value = 0;
+                }
+                else if (value > 1)
+                {
+                    value = 1;
+                }
                 this.model.Throttle = value;
                 NotifyPropertyChanged("VM_Throttle");
             }

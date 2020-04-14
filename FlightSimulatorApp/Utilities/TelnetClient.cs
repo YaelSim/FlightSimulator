@@ -101,7 +101,7 @@ namespace FlightSimulatorApp.Utilities
                 mutex.ReleaseMutex();
             }
             //If any exception was caught, return "0"
-            return "0";
+            return "ERR";
         }
         public void write(string commandStr)
         {

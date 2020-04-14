@@ -9,7 +9,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Canvas>
-            <Views:Joystick X="125" Y="125" Height="400" Width="500" Canvas.Left="600" Canvas.Top="392" x:Name="Joystick"/>
+            <Views:Joystick X="{Binding VM_Rudder, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" Y="{Binding VM_Elevator, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" Height="400" Width="500" Canvas.Left="600" Canvas.Top="392" x:Name="Joystick"/>
             <Views:Sliders Canvas.Left="916" Canvas.Top="225" x:Name="Sliders"></Views:Sliders>
         </Canvas>
         <Canvas Margin="0,-71,0,0">

@@ -33,8 +33,8 @@ namespace FlightSimulatorApp.Model
         private double dm_altimeter;
 
         //Joystick's + Sliders' properties as data members
-        private double dm_rudder = 10;
-        private double dm_elevator = 10;
+        private double dm_rudder = 0;
+        private double dm_elevator = 0;
         private double dm_aileron = 0;
         private double dm_throttle = 0;
 
@@ -130,14 +130,6 @@ namespace FlightSimulatorApp.Model
             get { return dm_rudder; }
             set
             {
-                if (value < (-1))
-                {
-                    value = (-1);
-                }
-                else if (value > 1)
-                {
-                    value = 1;
-                }
                 dm_rudder = value;
                 NotifyPropertyChanged("Rudder");
             }
@@ -146,14 +138,6 @@ namespace FlightSimulatorApp.Model
             get { return dm_elevator; }
             set
             {
-                if (value < (-1))
-                {
-                    value = (-1);
-                }
-                else if (value > 1)
-                {
-                    value = 1;
-                }
                 dm_elevator = value;
                 NotifyPropertyChanged("Elevator");
             }
@@ -162,14 +146,6 @@ namespace FlightSimulatorApp.Model
             get { return dm_aileron; }
             set
             {
-                if (value < (-1))
-                {
-                    value = (-1);
-                }
-                else if (value > 1)
-                {
-                    value = 1;
-                }
                 dm_aileron = value;
                 NotifyPropertyChanged("Aileron");
             }
@@ -178,14 +154,6 @@ namespace FlightSimulatorApp.Model
             get { return dm_throttle; }
             set
             {
-                if (value < 0)
-                {
-                    value = 0;
-                }
-                else if (value > 1)
-                {
-                    value = 1;
-                }
                 dm_throttle = value;
                 NotifyPropertyChanged("Throttle");
             }
