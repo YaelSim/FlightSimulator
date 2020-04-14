@@ -355,7 +355,7 @@ namespace FlightSimulatorApp.Model
                 telnetClient.write(command);
                 Debug.WriteLine("sent: " + command);
                 // DELETE AFTERWARDS ************************************************************
-                string str = this.telnetClient.read();
+                string str = telnetClient.read();
                 Debug.WriteLine("response: " + str);
                 mutex.ReleaseMutex();
             }

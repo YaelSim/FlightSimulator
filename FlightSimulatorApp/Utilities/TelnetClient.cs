@@ -9,7 +9,6 @@ namespace FlightSimulatorApp.Utilities
     public class TelnetClient : ITelnet
     {
         private Socket sender;
-        //private int timeout = 1000;
         private Mutex mutex = new Mutex();
 
         // Connect to a remote device.  
@@ -22,12 +21,14 @@ namespace FlightSimulatorApp.Utilities
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
 
                 // Create a TCP/IP  socket.  
-                this.sender = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                sender = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
                 // Connect the socket to the remote endpoint. Catch any errors.  
                 try
                 {
-                    this.sender.Connect(remoteEP);
+                    // Set the timeout for synchronous receive methods to 60 seconds (60000 milliseconds.)
+                    sender.ReceiveTimeout = 60000;
+                    sender.Connect(remoteEP);
                     Console.WriteLine("Socket connected to {0}", this.sender.RemoteEndPoint.ToString());
                 }
                 catch (ArgumentNullException ane)
@@ -38,11 +39,14 @@ namespace FlightSimulatorApp.Utilities
                 {
                     Console.WriteLine("SocketException : {0}", se.ToString());
                 }
+                catch (TimeoutException te)
+                {
+                    Console.WriteLine("TimeoutException : {0}", te.ToString());
+                }
                 catch (Exception e)
                 {
                     Console.WriteLine("Unexpected exception : {0}", e.ToString());
                 }
-
             }
             catch (Exception e)
             {
@@ -54,8 +58,8 @@ namespace FlightSimulatorApp.Utilities
             try
             {
                 // Release the socket.  
-                this.sender.Shutdown(SocketShutdown.Both);
-                this.sender.Close();
+                sender.Shutdown(SocketShutdown.Both);
+                sender.Close();
             }
             catch (ArgumentNullException ane)
             {
@@ -79,7 +83,7 @@ namespace FlightSimulatorApp.Utilities
                 byte[] bytes = new byte[1024];
 
                 // Receive the response from the remote device.  
-                int bytesRec = this.sender.Receive(bytes);
+                int bytesRec = sender.Receive(bytes);
                 string strGotten = Encoding.ASCII.GetString(bytes, 0, bytesRec);
                 Console.WriteLine("Echoed message = {0}", strGotten);
                 return strGotten;
@@ -101,7 +105,7 @@ namespace FlightSimulatorApp.Utilities
                 mutex.ReleaseMutex();
             }
             //If any exception was caught, return "0"
-            return "ERR";
+            return "0";
         }
         public void write(string commandStr)
         {
