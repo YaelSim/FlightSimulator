@@ -17,7 +17,7 @@
 
         <Button Foreground = "Gray" Click = "OnClickConnect" VerticalAlignment="Center" x:Name = "ConnectButton" Height="23" Margin="32,25,619.2,9.6">Connect</Button>
         <Button Foreground = "Gray" Click = "OnClickDisconnect" VerticalAlignment="Center" x:Name = "DisconnectButton" Height="23" Margin="132,25,519.2,9.6" RenderTransformOrigin="0.06,0.6">Disconnect</Button>
-        <!--<TextBlock Grid.Row="1" TextWrapping="Wrap"  Text="Status:  " VerticalAlignment="Top" FontSize="18" TextAlignment="Center" HorizontalAlignment="Center" FontWeight ="Bold" Height="24" Width="66"/>-->
+        <Button Foreground = "Red" Click = "OnClickExit" x:Name= "ShutDownButton" VerticalAlignment ="Center" Height="23" Margin="280,25,371.2,9.6">Exit</Button>
         <TextBlock FontSize="18" FontWeight="Bold" TextAlignment="Left" TextWrapping="Wrap" Padding="6" Text="{Binding Path = VM_CurrStatus, Mode=OneWay, StringFormat=Status: {0}, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="100" Width="800" Margin="0,0.4,0,0" Grid.ColumnSpan="2" Grid.Row="1"/>
     </Grid>
 </UserControl>

@@ -50,6 +50,14 @@ namespace FlightSimulatorApp.Views
                 vm.Disconnect();
             }
         }
+        void OnClickExit(object sender, RoutedEventArgs e)
+        {
+            if (Application.Current is App)
+            {
+                vm.Disconnect();
+                Application.Current.Shutdown();
+            }
+        }
         public MainViewModel Main_VM { get; internal set; }
 
     }
