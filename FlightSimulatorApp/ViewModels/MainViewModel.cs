@@ -9,11 +9,11 @@ namespace FlightSimulatorApp.ViewModels
     public partial class MainViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        private ISimulatorModel model;
-        private ConnectionButtonsViewModel ConnectionButtons_vm;
-        private DashboardViewModel Dashboard_vm;
-        private MapViewModel Map_vm;
-        private FlightControlsViewModel FlightControls_vm;
+        private readonly ISimulatorModel model;
+        private readonly ConnectionButtonsViewModel ConnectionButtons_vm;
+        private readonly DashboardViewModel Dashboard_vm;
+        private readonly MapViewModel Map_vm;
+        private readonly FlightControlsViewModel FlightControls_vm;
         public MainViewModel(ISimulatorModel m)
         {
             model = m;

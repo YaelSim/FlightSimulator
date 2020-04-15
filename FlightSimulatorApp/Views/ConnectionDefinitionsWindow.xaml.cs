@@ -18,7 +18,7 @@ namespace FlightSimulatorApp.Views
     /// </summary>
     public partial class ConnectionDefinitionsWindow : Window
     {
-        private ConnectionButtonsViewModel vm;
+        private readonly ConnectionButtonsViewModel vm;
         public ConnectionDefinitionsWindow()
         {
             InitializeComponent();

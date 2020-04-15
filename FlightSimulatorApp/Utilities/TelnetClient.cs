@@ -9,7 +9,7 @@ namespace FlightSimulatorApp.Utilities
     public class TelnetClient : ITelnet
     {
         private Socket sender;
-        private Mutex mutex = new Mutex();
+        private readonly Mutex mutex = new Mutex();
 
         // Connect to a remote device.  
         public void connect(string ip, int port)

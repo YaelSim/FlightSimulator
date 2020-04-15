@@ -11,7 +11,7 @@ namespace FlightSimulatorApp.Model
 {
     public class MySimulatorModel : ISimulatorModel
     {
-        private ITelnet telnetClient;
+        private readonly ITelnet telnetClient;
         private volatile bool stop;
         public event PropertyChangedEventHandler PropertyChanged;
         private readonly Mutex mutex = new Mutex();
