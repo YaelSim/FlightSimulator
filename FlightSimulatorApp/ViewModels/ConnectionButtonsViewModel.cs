@@ -48,7 +48,7 @@ namespace FlightSimulatorApp.ViewModels
                 NotifyPropertyChanged("VM_IPaddress");
             }
         }
-        public int VM_Port
+        public string VM_Port
         {
             get { return model.Port; }
             set

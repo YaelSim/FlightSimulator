@@ -20,7 +20,7 @@ namespace FlightSimulatorApp.Model
         private string dm_currStatus = "Disconnected";
         private string dm_error;
         private string dm_IPaddress;
-        private int dm_port;
+        private string dm_port;
 
         //Dashboard Properties as data members
         private string dm_heading;
@@ -457,6 +457,6 @@ namespace FlightSimulatorApp.Model
             }
         }
         public string IPaddress { get { return dm_IPaddress; } set { dm_IPaddress = value; } }
-        public int Port { get { return dm_port; } set { dm_port = value; } }
+        public string Port { get { return dm_port; } set { dm_port = value; } }
     }
 }
