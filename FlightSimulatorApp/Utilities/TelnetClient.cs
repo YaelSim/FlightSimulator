@@ -26,31 +26,36 @@ namespace FlightSimulatorApp.Utilities
                 // Connect the socket to the remote endpoint. Catch any errors.  
                 try
                 {
-                    // Set the timeout for synchronous receive methods to 60 seconds (60000 milliseconds.)
-                    sender.ReceiveTimeout = 60000;
+                    // Set the timeout for synchronous receive methods to 10 seconds (10000 milliseconds.)
+                    sender.ReceiveTimeout = 10000;
                     sender.Connect(remoteEP);
                     Console.WriteLine("Socket connected to {0}", this.sender.RemoteEndPoint.ToString());
                 }
                 catch (ArgumentNullException ane)
                 {
                     Console.WriteLine("ArgumentNullException : {0}", ane.ToString());
+                    throw ane;
                 }
                 catch (SocketException se)
                 {
                     Console.WriteLine("SocketException : {0}", se.ToString());
+                    throw se;
                 }
                 catch (TimeoutException te)
                 {
                     Console.WriteLine("TimeoutException : {0}", te.ToString());
+                    throw te;
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine("Unexpected exception : {0}", e.ToString());
+                    throw e;
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
+                throw e;
             }
         }
         public void disconnect()

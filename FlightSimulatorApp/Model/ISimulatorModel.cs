@@ -15,14 +15,14 @@ namespace FlightSimulatorApp.Model
         void SendCommandToSimulator(string command);
 
         //Simulator Properties
-        double Heading { get; set; }
-        double VerticalSpeed { get; set; }
-        double GroundSpeed { get; set; }
-        double AirSpeed { get; set; }
-        double Altitude { get; set; }
-        double InternalRoll { get; set; }
-        double InternalPitch { get; set; }
-        double Altimeter { get; set; }
+        string Heading { get; set; }
+        string VerticalSpeed { get; set; }
+        string GroundSpeed { get; set; }
+        string AirSpeed { get; set; }
+        string Altitude { get; set; }
+        string InternalRoll { get; set; }
+        string InternalPitch { get; set; }
+        string Altimeter { get; set; }
 
         //Activate actuators
         double Rudder { get; set; }
@@ -37,6 +37,7 @@ namespace FlightSimulatorApp.Model
 
         //Connection buttons' property
         string CurrStatus { get; set; }
+        string Err { get; set; }
         string IPaddress { get; set; }
         int Port { get; set; }
     }

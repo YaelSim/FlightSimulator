@@ -57,5 +57,14 @@ namespace FlightSimulatorApp.ViewModels
                 NotifyPropertyChanged("VM_Port");
             }
         }
+        public string VM_Err
+        {
+            get { return model.Err; }
+            set
+            {
+                model.Err = value;
+                NotifyPropertyChanged("VM_Err");
+            }
+        }
     }
 }

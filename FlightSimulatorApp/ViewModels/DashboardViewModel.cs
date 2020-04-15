@@ -8,7 +8,7 @@ namespace FlightSimulatorApp.ViewModels
 {
     public partial class DashboardViewModel : INotifyPropertyChanged
     {
-        private ISimulatorModel model;
+        private readonly ISimulatorModel model;
         public event PropertyChangedEventHandler PropertyChanged;
 
         public DashboardViewModel(ISimulatorModel m)
@@ -22,60 +22,60 @@ namespace FlightSimulatorApp.ViewModels
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public double VM_Heading
+        public string VM_Heading
         {
             get
             {
-                return this.model.Heading;
+                return model.Heading;
             }
         }
-        public double VM_VerticalSpeed
+        public string VM_VerticalSpeed
         {
             get
             {
-                return this.model.VerticalSpeed;
+                return model.VerticalSpeed;
             }
         }
-        public double VM_GroundSpeed
+        public string VM_GroundSpeed
         {
             get
             {
-                return this.model.GroundSpeed;
+                return model.GroundSpeed;
             }
         }
-        public double VM_AirSpeed
+        public string VM_AirSpeed
         {
             get
             {
-                return this.model.AirSpeed;
+                return model.AirSpeed;
             }
         }
-        public double VM_Altitude
+        public string VM_Altitude
         {
             get
             {
-                return this.model.Altitude;
+                return model.Altitude;
             }
         }
-        public double VM_InternalRoll
+        public string VM_InternalRoll
         {
             get
             {
-                return this.model.InternalRoll;
+                return model.InternalRoll;
             }
         }
-        public double VM_InternalPitch
+        public string VM_InternalPitch
         {
             get
             {
-                return this.model.InternalPitch;
+                return model.InternalPitch;
             }
         }
-        public double VM_Altimeter
+        public string VM_Altimeter
         {
             get
             {
-                return this.model.Altimeter;
+                return model.Altimeter;
             }
         }
     }
