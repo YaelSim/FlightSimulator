@@ -19,7 +19,7 @@ namespace FlightSimulatorApp.Views
     /// </summary>
     public partial class ConnectionButtons : UserControl
     {
-        private ConnectionButtonsViewModel vm;
+        private readonly ConnectionButtonsViewModel vm;
         public ConnectionButtons()
         {
             InitializeComponent();
@@ -43,7 +43,6 @@ namespace FlightSimulatorApp.Views
         void OnClickDisconnect(object sender, RoutedEventArgs e)
         {
             DisconnectButton.Foreground = new SolidColorBrush(Colors.Red);
-            string curr = vm.VM_CurrStatus;
             if (!vm.VM_CurrStatus.Equals("Disconnected"))
             {
                 vm.VM_CurrStatus = "Disconnected";

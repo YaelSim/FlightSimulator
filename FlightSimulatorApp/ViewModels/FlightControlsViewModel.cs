@@ -9,7 +9,7 @@ namespace FlightSimulatorApp.ViewModels
 {
     public partial class FlightControlsViewModel : INotifyPropertyChanged
     {
-        private ISimulatorModel model;
+        private readonly ISimulatorModel model;
         public event PropertyChangedEventHandler PropertyChanged;
         public FlightControlsViewModel(ISimulatorModel m)
         {

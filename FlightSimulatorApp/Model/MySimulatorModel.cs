@@ -3,6 +3,7 @@ using Microsoft.Maps.MapControl.WPF;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Diagnostics;
 using System.Text;
 using System.Threading;
@@ -18,8 +19,10 @@ namespace FlightSimulatorApp.Model
         //Connection Buttons property as a data member
         private string dm_currStatus = "Disconnected";
         private string dm_error;
-        private string dm_IPaddress;
-        private string dm_port;
+        [Obsolete]
+        private string dm_IPaddress = ConfigurationSettings.AppSettings.Get("IPdefault");
+        [Obsolete]
+        private string dm_port = ConfigurationSettings.AppSettings.Get("Portdefault");
 
         //Dashboard Properties as data members
         private string dm_heading;
@@ -305,6 +308,7 @@ namespace FlightSimulatorApp.Model
                         try
                         {
                             telnetClient.Connect(ip, portAsInt);
+                            stop = false;
                             CurrStatus = "Connected";
                             errorsInIpAndPort = false;
                             Err = "";
@@ -592,7 +596,11 @@ namespace FlightSimulatorApp.Model
                 NotifyPropertyChanged("Err");
             }
         }
+
+        [Obsolete]
         public string IPaddress { get { return dm_IPaddress; } set { dm_IPaddress = value; } }
+
+        [Obsolete]
         public string Port { get { return dm_port; } set { dm_port = value; } }
     }
 }
