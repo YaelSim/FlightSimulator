@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -29,32 +30,32 @@ namespace FlightSimulatorApp.Utilities
                     // Set the timeout for synchronous receive methods to 10 seconds (10000 milliseconds.)
                     sender.ReceiveTimeout = 10000;
                     sender.Connect(remoteEP);
-                    Console.WriteLine("Socket connected to {0}", this.sender.RemoteEndPoint.ToString());
+                    Debug.WriteLine("Socket connected to {0}", this.sender.RemoteEndPoint.ToString());
                 }
                 catch (ArgumentNullException ane)
                 {
-                    Console.WriteLine("ArgumentNullException : {0}", ane.ToString());
+                    Debug.WriteLine("ArgumentNullException : {0}", ane.ToString());
                     throw ane;
                 }
                 catch (SocketException se)
                 {
-                    Console.WriteLine("SocketException : {0}", se.ToString());
+                    Debug.WriteLine("SocketException : {0}", se.ToString());
                     throw se;
                 }
                 catch (TimeoutException te)
                 {
-                    Console.WriteLine("TimeoutException : {0}", te.ToString());
+                    Debug.WriteLine("TimeoutException : {0}", te.ToString());
                     throw te;
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Unexpected exception : {0}", e.ToString());
+                    Debug.WriteLine("Unexpected exception : {0}", e.ToString());
                     throw e;
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
+                Debug.WriteLine(e.ToString());
                 throw e;
             }
         }
@@ -67,15 +68,15 @@ namespace FlightSimulatorApp.Utilities
             }
             catch (ArgumentNullException ane)
             {
-                Console.WriteLine("ArgumentNullException : {0}", ane.ToString());
+                Debug.WriteLine("ArgumentNullException : {0}", ane.ToString());
             }
             catch (SocketException se)
             {
-                Console.WriteLine("SocketException : {0}", se.ToString());
+                Debug.WriteLine("SocketException : {0}", se.ToString());
             }
             catch (Exception e)
             {
-                Console.WriteLine("Unexpected exception : {0}", e.ToString());
+                Debug.WriteLine("Unexpected exception : {0}", e.ToString());
             }
             finally
             {
@@ -93,27 +94,27 @@ namespace FlightSimulatorApp.Utilities
                 // Receive the response from the remote device.  
                 int bytesRec = sender.Receive(bytes);
                 string strGotten = Encoding.ASCII.GetString(bytes, 0, bytesRec);
-                Console.WriteLine("Echoed message = {0}", strGotten);
+                Debug.WriteLine("Echoed message = {0}", strGotten);
                 mutex.ReleaseMutex();
                 return strGotten;
             }
             catch (ArgumentNullException ane)
             {
-                Console.WriteLine("ArgumentNullException : {0}", ane.ToString());
+                Debug.WriteLine("ArgumentNullException : {0}", ane.ToString());
                 mutex.ReleaseMutex();
                 //If any exception was caught, return "0"
                 return "ERR";
             }
             catch (SocketException se)
             {
-                Console.WriteLine("SocketException : {0}", se.ToString());
+                Debug.WriteLine("SocketException : {0}", se.ToString());
                 mutex.ReleaseMutex();
                 //If any exception was caught, return "0"
                 return "ERR";
             }
             catch (Exception e)
             {
-                Console.WriteLine("Unexpected exception : {0}", e.ToString());
+                Debug.WriteLine("Unexpected exception : {0}", e.ToString());
                 mutex.ReleaseMutex();
                 //If any exception was caught, return "0"
                 return "ERR";
@@ -132,15 +133,15 @@ namespace FlightSimulatorApp.Utilities
             }
             catch (ArgumentNullException ane)
             {
-                Console.WriteLine("ArgumentNullException : {0}", ane.ToString());
+                Debug.WriteLine("ArgumentNullException : {0}", ane.ToString());
             }
             catch (SocketException se)
             {
-                Console.WriteLine("SocketException : {0}", se.ToString());
+                Debug.WriteLine("SocketException : {0}", se.ToString());
             }
             catch (Exception e)
             {
-                Console.WriteLine("Unexpected exception : {0}", e.ToString());
+                Debug.WriteLine("Unexpected exception : {0}", e.ToString());
             }
             finally
             {

@@ -12,44 +12,40 @@ namespace FlightSimulatorApp.ViewModels
 {
     public partial class MapViewModel : INotifyPropertyChanged
     {
-        private ISimulatorModel model;
+        private readonly ISimulatorModel model;
         public event PropertyChangedEventHandler PropertyChanged;
 
         public MapViewModel(ISimulatorModel m)
         {
-            this.model = m;
-            this.model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e) {
+            model = m;
+            model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e) {
                 NotifyPropertyChanged("VM_" + e.PropertyName);
             };
         }
         public void NotifyPropertyChanged(string propertyName)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         [Obsolete]
         public Location VM_Location
         {
             get
             {
-                Console.WriteLine("location" + model.Latitude + "," + model.Longitude);
-                return this.model.Location;
+                return model.Location;
             }
         }
         public double VM_Longitude
         {
             get
             {
-                return this.model.Longitude;
+                return model.Longitude;
             }
         }
         public double VM_Latitude
         {
             get
             {
-                return this.model.Latitude;
+                return model.Latitude;
             }
         }
     }
