@@ -7,10 +7,13 @@ namespace FlightSimulatorApp.Utilities
 {
     public interface ITelnet
     {
-        void connect(string ip, int port);
-        void disconnect();
+        void Connect(string ip, int port);
+        void Disconnect();
         // Blocking call:
-        string read();
-        void write(string commandStr);
+        string Read();
+        void Write(string commandStr);
+        bool IsSocketAvailableWriting();
+        bool IsSocketAvailableReading();
+
     }
 }

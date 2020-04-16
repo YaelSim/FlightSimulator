@@ -42,9 +42,9 @@ namespace FlightSimulatorApp.ViewModels
         {
             get { return Map_vm; }
         }
-        public void Connect(string ip, int port)
+        public void Connect()
         {
-            ConnectionButtons_vm.Connect(ConnectionButtons_vm.VM_IPaddress, Int32.Parse(ConnectionButtons_vm.VM_Port));
+            ConnectionButtons_vm.Connect(ConnectionButtons_vm.VM_IPaddress, ConnectionButtons_vm.VM_Port);
         }
         public void Start()
         {

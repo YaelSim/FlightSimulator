@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Text;
 
 namespace FlightSimulatorApp.ViewModels
@@ -23,20 +24,29 @@ namespace FlightSimulatorApp.ViewModels
         }
         public void SendCommandToModel(string cmd)
         {
-            this.model.SendCommandToSimulator(cmd);
+            model.SendCommandToSimulator(cmd);
         }
-        //Joystick Properties
+        //Joystick Properties and help methods
         public double VM_Rudder
         {
             get
             {
-                return this.model.Rudder;
+                return model.Rudder;
             }
             set
             {
-                model.Rudder = value;
+                double newVal = SetNewValueForRudder(value);
+                if (newVal < (-1))
+                {
+                    newVal = (-1);
+                }
+                else if (newVal > 1)
+                {
+                    newVal = 1;
+                }
+                model.Rudder = newVal;
                 //Convert the value (double) to string, in order to pass it to the ViewModel.
-                string valAsString = model.Rudder.ToString();
+                string valAsString = newVal.ToString();
                 string cmd = "set /controls/flight/rudder " + valAsString;
                 SendCommandToModel(cmd);
                 NotifyPropertyChanged("VM_Rudder");
@@ -46,17 +56,51 @@ namespace FlightSimulatorApp.ViewModels
         {
             get
             {
-                return this.model.Elevator;
+                return model.Elevator;
             }
             set
             {
-                model.Elevator = value;
+                double newVal = SetNewValueForElevator(value);
+                if (newVal < (-1))
+                {
+                    newVal = (-1);
+                }
+                else if (newVal > 1)
+                {
+                    newVal = 1;
+                }
+                model.Elevator = newVal;
+
                 //Convert the value (double) to string, in order to pass it to the ViewModel.
-                string valAsString = model.Elevator.ToString();
+                string valAsString = newVal.ToString();
                 string cmd = "set /controls/flight/elevator " + valAsString;
                 SendCommandToModel(cmd);
                 NotifyPropertyChanged("VM_Elevator");
             }
+        }
+        public double SetNewValueForRudder(double value)
+        {
+            double rangeXaml = 250;
+            double rangeProperty = 2;
+            double proportionalVal = value / rangeXaml;
+            double newVal = ((-1) + (proportionalVal * rangeProperty));
+            newVal *= 1000;
+            int valAsInt = (int)newVal;
+            newVal = (double)valAsInt;
+            newVal /= 1000;
+            return newVal;
+        }
+        public double SetNewValueForElevator(double value)
+        {
+            double rangeXaml = 250;
+            double rangeProperty = 2;
+            double proportionalVal = value / rangeXaml;
+            double newVal = (1 - (proportionalVal * rangeProperty));
+            newVal *= 1000;
+            int valAsInt = (int)newVal;
+            newVal = (double)valAsInt;
+            newVal /= 1000;
+            return newVal;
         }
         public double VM_X
         {

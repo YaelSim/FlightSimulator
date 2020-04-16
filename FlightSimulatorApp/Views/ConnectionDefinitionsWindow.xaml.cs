@@ -28,9 +28,7 @@ namespace FlightSimulatorApp.Views
         }
         public void ClickedOnConnect(object sender, RoutedEventArgs e)
         {
-            //MainWindow mainWindow = new MainWindow(vm.IPaddress, vm.Port);
-            //mainWindow.Show();
-            (Application.Current as App).MainWindowView = new MainWindow(vm.VM_IPaddress, Int32.Parse(vm.VM_Port));
+            (Application.Current as App).MainWindowView = new MainWindow();
             (Application.Current as App).MainWindowView.Show();
             this.Close();
         }

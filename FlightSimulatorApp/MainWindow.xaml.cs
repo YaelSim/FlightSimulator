@@ -23,7 +23,7 @@ namespace FlightSimulatorApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow(string ip, int port)
+        public MainWindow()
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             Main_VM = (Application.Current as App).MainVM;
@@ -31,7 +31,8 @@ namespace FlightSimulatorApp
             InitializeComponent();
             //Constructs all of the views' fields.
             SetViews();
-            Main_VM.Connect(ip, port);
+
+            Main_VM.Connect();
             Main_VM.Start();
         }
         private void SetViews()

@@ -9,7 +9,7 @@ namespace FlightSimulatorApp.Model
     public interface ISimulatorModel : INotifyPropertyChanged
     {
         //Methods that are responsible for connecting to the simulator
-        void Connect(string ip, int port);
+        void Connect(string ip, string port);
         void Disconnect();
         void Start();
         void SendCommandToSimulator(string command);

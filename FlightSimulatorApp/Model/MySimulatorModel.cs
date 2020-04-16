@@ -14,8 +14,7 @@ namespace FlightSimulatorApp.Model
         private readonly ITelnet telnetClient;
         private volatile bool stop;
         public event PropertyChangedEventHandler PropertyChanged;
-        private readonly Mutex mutex = new Mutex();
-
+        private volatile bool errorsInIpAndPort = false;
         //Connection Buttons property as a data member
         private string dm_currStatus = "Disconnected";
         private string dm_error;
@@ -227,16 +226,7 @@ namespace FlightSimulatorApp.Model
             get { return dm_rudder; }
             set
             {
-                double newVal = SetNewValueForRudder(value);
-                if (newVal < (-1))
-                {
-                    newVal = (-1);
-                }
-                else if (newVal > 1)
-                {
-                    newVal = 1;
-                }
-                dm_rudder = newVal;
+                dm_rudder = value;
                 NotifyPropertyChanged("Rudder");
             }
         }
@@ -244,45 +234,10 @@ namespace FlightSimulatorApp.Model
             get { return dm_elevator; }
             set
             {
-                double newVal = SetNewValueForElevator(value);
-                if (newVal < (-1))
-                {
-                    newVal = (-1);
-                }
-                else if (newVal > 1)
-                {
-                    newVal = 1;
-                }
-                dm_elevator = newVal;
+                dm_elevator = value;
                 NotifyPropertyChanged("Elevator");
             }
         }
-
-        public double SetNewValueForRudder(double value)
-        {
-            double rangeXaml = 250;
-            double rangeProperty = 2;
-            double proportionalVal = value / rangeXaml;
-            double newVal = ((-1) + (proportionalVal * rangeProperty));
-            newVal *= 1000;
-            int valAsInt = (int)newVal;
-            newVal = (double)valAsInt;
-            newVal /= 1000;
-            return newVal;
-        }
-        public double SetNewValueForElevator(double value)
-        {
-            double rangeXaml = 250;
-            double rangeProperty = 2;
-            double proportionalVal = value / rangeXaml;
-            double newVal = (1 - (proportionalVal * rangeProperty));
-            newVal *= 1000;
-            int valAsInt = (int)newVal;
-            newVal = (double)valAsInt;
-            newVal /= 1000;
-            return newVal;
-        }
-
         public double Aileron {
             get { return dm_aileron; }
             set
@@ -338,94 +293,266 @@ namespace FlightSimulatorApp.Model
                 NotifyPropertyChanged("Location");
             }
         }
-        public void Connect(string ip, int port)
+        public void Connect(string ip, string port)
         {
             try
             {
-                telnetClient.connect(ip, port);
-                CurrStatus = "Connected";
-            } catch (TimeoutException)
+                //Checking if the given ip and port are valid!
+                if (Int32.TryParse(port, out int portAsInt))
+                {
+                    if ((ip.Contains(".")) && (System.Net.IPAddress.TryParse(ip, out System.Net.IPAddress address)))
+                    {
+                        try
+                        {
+                            telnetClient.Connect(ip, portAsInt);
+                            CurrStatus = "Connected";
+                            errorsInIpAndPort = false;
+                            Err = "";
+                        } catch (Exception)
+                        {
+                            CurrStatus = "Connection Has Failed";
+                        }
+                    } else
+                    {
+                        CurrStatus = "Invalid port or IP address - Please try again";
+                        errorsInIpAndPort = true;
+                    }
+                } else
+                {
+                    CurrStatus = "Invalid port or IP address - Please try again";
+                    errorsInIpAndPort = true;
+                }
+            }
+            catch (TimeoutException)
             {
                 //Timeout occurred
                 CurrStatus = "Timeout Occurred";
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 CurrStatus = "Connection Has Failed";
             }
         }
         public void Disconnect()
         {
-            stop = true;
-            CurrStatus = "Disconnected";
-            telnetClient.disconnect();
+            if (!errorsInIpAndPort)
+            {
+                stop = true;
+                telnetClient.Disconnect();
+                CurrStatus = "Disconnected";
+                Err = "";
+            }
         }
         public void Start()
         {
-            new Thread(delegate ()
+            if (!errorsInIpAndPort)
             {
-                while (!stop)
+                new Thread(delegate ()
                 {
-                    try
+                    while (!stop)
                     {
-                        string tempStr;
-                        telnetClient.write("get /instrumentation/heading-indicator/indicated-heading-deg");
-                        tempStr = telnetClient.read();
-                        Heading = tempStr;
-                        //think what happens when it IS AN ERROR!!!!!!!!!!!!!!!!!!!!!!!!**************************
-
-                        telnetClient.write("get /instrumentation/gps/indicated-vertical-speed");
-                        tempStr = telnetClient.read();
-                        VerticalSpeed = tempStr;
-
-                        telnetClient.write("get /instrumentation/gps/indicated-ground-speed-kt");
-                        tempStr = telnetClient.read();
-                        GroundSpeed = tempStr;
-
-                        telnetClient.write("get /instrumentation/airspeed-indicator/indicated-speed-kt");
-                        tempStr = telnetClient.read();
-                        AirSpeed = tempStr;
-
-                        telnetClient.write("get /instrumentation/gps/indicated-altitude-ft");
-                        tempStr = telnetClient.read();
-                        Altitude = tempStr;
-
-                        telnetClient.write("get /instrumentation/attitude-indicator/internal-roll-deg");
-                        tempStr = telnetClient.read();
-                        InternalRoll = tempStr;
-
-                        telnetClient.write("get /instrumentation/attitude-indicator/internal-pitch-deg");
-                        tempStr = telnetClient.read();
-                        InternalPitch = tempStr;
-
-                        telnetClient.write("get /instrumentation/altimeter/indicated-altitude-ft");
-                        tempStr = telnetClient.read();
-                        Altimeter = tempStr;
-
-                        telnetClient.write("get /position/longitude-deg");
-                        tempStr = telnetClient.read();
-                        if (!(tempStr.Equals("ERR")))
+                        try
                         {
-                            Longitude = Double.Parse(tempStr);
-                        }
+                            string tempStr;
+                            if (telnetClient.IsSocketAvailableWriting())
+                            {
+                                telnetClient.Write("get /instrumentation/heading-indicator/indicated-heading-deg");
+                            }
+                            else
+                            {
+                                Err = "Timeout";
+                            }
+                            if (telnetClient.IsSocketAvailableReading())
+                            {
+                                tempStr = telnetClient.Read();
+                                Heading = tempStr;
+                            }
+                            else
+                            {
+                                Err = "Timeout";
+                            }
 
-                        telnetClient.write("get /position/latitude-deg");
-                        tempStr = telnetClient.read();
-                        if (!(tempStr.Equals("ERR")))
-                        {
-                            Latitude = Double.Parse(tempStr);
-                        }
+                            if (telnetClient.IsSocketAvailableWriting())
+                            {
+                                telnetClient.Write("get /instrumentation/gps/indicated-vertical-speed");
+                            }
+                            else
+                            {
+                                Err = "Timeout";
+                            }
+                            if (telnetClient.IsSocketAvailableReading())
+                            {
+                                tempStr = telnetClient.Read();
+                                VerticalSpeed = tempStr;
+                            }
+                            else
+                            {
+                                Err = "Timeout";
+                            }
 
-                        Location = new Location(Latitude, Longitude);
+                            if (telnetClient.IsSocketAvailableWriting())
+                            {
+                                telnetClient.Write("get /instrumentation/gps/indicated-ground-speed-kt");
+                            }
+                            else
+                            {
+                                Err = "Timeout";
+                            }
+                            if (telnetClient.IsSocketAvailableReading())
+                            {
+                                tempStr = telnetClient.Read();
+                                GroundSpeed = tempStr;
+                            }
+                            else
+                            {
+                                Err = "Timeout";
+                            }
 
-                        Thread.Sleep(250); //SLEEP FOR 250 MS - that determines we will ask for details 4 times in a sec.
-                    } catch (Exception e)
-                    {
-                        Err = "ERR";
-                        CurrStatus = e.ToString();
-                        Thread.Sleep(250);
+                            if (telnetClient.IsSocketAvailableWriting())
+                            {
+                                telnetClient.Write("get /instrumentation/airspeed-indicator/indicated-speed-kt");
+                            }
+                            else
+                            {
+                                Err = "Timeout";
+                            }
+                            if (telnetClient.IsSocketAvailableReading())
+                            {
+                                tempStr = telnetClient.Read();
+                                AirSpeed = tempStr;
+                            }
+                            else
+                            {
+                                Err = "Timeout";
+                            }
+
+                            if (telnetClient.IsSocketAvailableWriting())
+                            {
+                                telnetClient.Write("get /instrumentation/gps/indicated-altitude-ft");
+                            }
+                            else
+                            {
+                                Err = "Timeout";
+                            }
+                            if (telnetClient.IsSocketAvailableReading())
+                            {
+                                tempStr = telnetClient.Read();
+                                Altitude = tempStr;
+                            }
+                            else
+                            {
+                                Err = "Timeout";
+                            }
+
+                            if (telnetClient.IsSocketAvailableWriting())
+                            {
+                                telnetClient.Write("get /instrumentation/attitude-indicator/internal-roll-deg");
+                            }
+                            else
+                            {
+                                Err = "Timeout";
+                            }
+                            if (telnetClient.IsSocketAvailableReading())
+                            {
+                                tempStr = telnetClient.Read();
+                                InternalRoll = tempStr;
+                            }
+                            else
+                            {
+                                Err = "Timeout";
+                            }
+
+                            if (telnetClient.IsSocketAvailableWriting())
+                            {
+                                telnetClient.Write("get /instrumentation/attitude-indicator/internal-pitch-deg");
+                            }
+                            else
+                            {
+                                Err = "Timeout";
+                            }
+                            if (telnetClient.IsSocketAvailableReading())
+                            {
+                                tempStr = telnetClient.Read();
+                                InternalPitch = tempStr;
+                            }
+                            else
+                            {
+                                Err = "Timeout";
+                            }
+
+                            if (telnetClient.IsSocketAvailableWriting())
+                            {
+                                telnetClient.Write("get /instrumentation/altimeter/indicated-altitude-ft");
+                            }
+                            else
+                            {
+                                Err = "Timeout";
+                            }
+                            if (telnetClient.IsSocketAvailableReading())
+                            {
+                                tempStr = telnetClient.Read();
+                                Altimeter = tempStr;
+                            }
+                            else
+                            {
+                                Err = "Timeout";
+                            }
+
+                            if (telnetClient.IsSocketAvailableWriting())
+                            {
+                                telnetClient.Write("get /position/longitude-deg");
+                            }
+                            else
+                            {
+                                Err = "Timeout";
+                            }
+                            if (telnetClient.IsSocketAvailableReading())
+                            {
+                                tempStr = telnetClient.Read();
+                                if (!(tempStr.Equals("ERR")))
+                                {
+                                    Longitude = Double.Parse(tempStr);
+                                }
+                            }
+                            else
+                            {
+                                Err = "Timeout";
+                            }
+
+                            if (telnetClient.IsSocketAvailableWriting())
+                            {
+                                telnetClient.Write("get /position/latitude-deg");
+                            }
+                            else
+                            {
+                                Err = "Timeout";
+                            }
+                            if (telnetClient.IsSocketAvailableReading())
+                            {
+                                tempStr = telnetClient.Read();
+                                if (!(tempStr.Equals("ERR")))
+                                {
+                                    Latitude = Double.Parse(tempStr);
+                                }
+                            }
+                            else
+                            {
+                                Err = "Timeout";
+                            }
+
+                            Location = new Location(Latitude, Longitude);
+
+                            Thread.Sleep(250); //SLEEP FOR 250 MS - that determines we will ask for details 4 times in a sec.
                     }
-                }
-            }).Start();
+                        catch (Exception)
+                        {
+                            Err = "ERR";
+                            Thread.Sleep(250);
+                            Err = "";
+                        }
+                    }
+                }).Start();
+            }
         }
         public void NotifyPropertyChanged(string propertyName)
         {
@@ -433,15 +560,24 @@ namespace FlightSimulatorApp.Model
         }
         public void SendCommandToSimulator(string command)
         {
-            if (!stop)
+            if ((!stop) && (!errorsInIpAndPort))
             {
-                mutex.WaitOne();
-                telnetClient.write(command);
-                Debug.WriteLine("sent: " + command);
-                // DELETE AFTERWARDS ************************************************************
-                string str = telnetClient.read();
-                Debug.WriteLine("response: " + str);
-                mutex.ReleaseMutex();
+                if (telnetClient.IsSocketAvailableWriting())
+                {
+                    try
+                    {
+                        telnetClient.Write(command);
+                        Debug.WriteLine("sent: " + command);
+                    }
+                    catch (Exception)
+                    {
+                        Debug.WriteLine("Writing failed in mySimulatorModel line 566");
+                    }
+                }
+                else
+                {
+                    Err = "Timeout";
+                }
             }
         }
         public string Err

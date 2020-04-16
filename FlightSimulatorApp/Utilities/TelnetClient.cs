@@ -12,7 +12,7 @@ namespace FlightSimulatorApp.Utilities
         private readonly Mutex mutex = new Mutex();
 
         // Connect to a remote device.  
-        public void connect(string ip, int port)
+        public void Connect(string ip, int port)
         {
             try
             {
@@ -58,40 +58,12 @@ namespace FlightSimulatorApp.Utilities
                 throw e;
             }
         }
-        public void disconnect()
+        public void Disconnect()
         {
             try
             {
                 // Release the socket.  
                 sender.Shutdown(SocketShutdown.Both);
-                sender.Close();
-            }
-            catch (ArgumentNullException ane)
-            {
-                Console.WriteLine("ArgumentNullException : {0}", ane.ToString());
-            }
-            catch (SocketException se)
-            {
-                Console.WriteLine("SocketException : {0}", se.ToString());
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Unexpected exception : {0}", e.ToString());
-            }
-        }
-        public string read()
-        {
-            try
-            {
-                mutex.WaitOne();
-                // Data buffer for incoming data.  
-                byte[] bytes = new byte[1024];
-
-                // Receive the response from the remote device.  
-                int bytesRec = sender.Receive(bytes);
-                string strGotten = Encoding.ASCII.GetString(bytes, 0, bytesRec);
-                Console.WriteLine("Echoed message = {0}", strGotten);
-                return strGotten;
             }
             catch (ArgumentNullException ane)
             {
@@ -107,12 +79,47 @@ namespace FlightSimulatorApp.Utilities
             }
             finally
             {
-                mutex.ReleaseMutex();
+                sender.Close();
             }
-            //If any exception was caught, return "0"
-            return "ERR";
         }
-        public void write(string commandStr)
+        public string Read()
+        {
+            try
+            {
+                mutex.WaitOne();
+                // Data buffer for incoming data.  
+                byte[] bytes = new byte[1024];
+
+                // Receive the response from the remote device.  
+                int bytesRec = sender.Receive(bytes);
+                string strGotten = Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                Console.WriteLine("Echoed message = {0}", strGotten);
+                mutex.ReleaseMutex();
+                return strGotten;
+            }
+            catch (ArgumentNullException ane)
+            {
+                Console.WriteLine("ArgumentNullException : {0}", ane.ToString());
+                mutex.ReleaseMutex();
+                //If any exception was caught, return "0"
+                return "ERR";
+            }
+            catch (SocketException se)
+            {
+                Console.WriteLine("SocketException : {0}", se.ToString());
+                mutex.ReleaseMutex();
+                //If any exception was caught, return "0"
+                return "ERR";
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Unexpected exception : {0}", e.ToString());
+                mutex.ReleaseMutex();
+                //If any exception was caught, return "0"
+                return "ERR";
+            }
+        }
+        public void Write(string commandStr)
         {
             try
             {
@@ -140,6 +147,16 @@ namespace FlightSimulatorApp.Utilities
             {
                 mutex.ReleaseMutex();
             }
+        }
+        public bool IsSocketAvailableReading()
+        {
+            int microSeconds = 10000000;
+            return sender.Poll(microSeconds, SelectMode.SelectRead);
+        }
+        public bool IsSocketAvailableWriting()
+        {
+            int microSeconds = 10000000;
+            return sender.Poll(microSeconds, SelectMode.SelectWrite);
         }
     }
 }
