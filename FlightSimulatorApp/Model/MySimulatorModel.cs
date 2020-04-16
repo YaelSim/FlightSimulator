@@ -364,16 +364,20 @@ namespace FlightSimulatorApp.Model
                             }
                             else
                             {
-                                Err = "Timeout";
+                                Err = "Timeout - Heading";
                             }
                             if (telnetClient.IsSocketAvailableReading())
                             {
                                 tempStr = telnetClient.Read();
                                 Heading = tempStr;
+                                if (Err.Equals("Timeout - Heading"))
+                                {
+                                    Err = "";
+                                }
                             }
                             else
                             {
-                                Err = "Timeout";
+                                Err = "Timeout - Heading";
                             }
 
                             if (telnetClient.IsSocketAvailableWriting())
@@ -382,16 +386,20 @@ namespace FlightSimulatorApp.Model
                             }
                             else
                             {
-                                Err = "Timeout";
+                                Err = "Timeout - VerticalSpeed";
                             }
                             if (telnetClient.IsSocketAvailableReading())
                             {
                                 tempStr = telnetClient.Read();
                                 VerticalSpeed = tempStr;
+                                if (Err.Equals("Timeout - VerticalSpeed"))
+                                {
+                                    Err = "";
+                                }
                             }
                             else
                             {
-                                Err = "Timeout";
+                                Err = "Timeout - VerticalSpeed";
                             }
 
                             if (telnetClient.IsSocketAvailableWriting())
@@ -400,16 +408,20 @@ namespace FlightSimulatorApp.Model
                             }
                             else
                             {
-                                Err = "Timeout";
+                                Err = "Timeout - GroundSpeed";
                             }
                             if (telnetClient.IsSocketAvailableReading())
                             {
                                 tempStr = telnetClient.Read();
                                 GroundSpeed = tempStr;
+                                if (Err.Equals("Timeout - GroundSpeed"))
+                                {
+                                    Err = "";
+                                }
                             }
                             else
                             {
-                                Err = "Timeout";
+                                Err = "Timeout - GroundSpeed";
                             }
 
                             if (telnetClient.IsSocketAvailableWriting())
@@ -418,16 +430,20 @@ namespace FlightSimulatorApp.Model
                             }
                             else
                             {
-                                Err = "Timeout";
+                                Err = "Timeout - AirSpeed";
                             }
                             if (telnetClient.IsSocketAvailableReading())
                             {
                                 tempStr = telnetClient.Read();
                                 AirSpeed = tempStr;
+                                if (Err.Equals("Timeout - AirSpeed"))
+                                {
+                                    Err = "";
+                                }
                             }
                             else
                             {
-                                Err = "Timeout";
+                                Err = "Timeout - AirSpeed";
                             }
 
                             if (telnetClient.IsSocketAvailableWriting())
@@ -436,16 +452,20 @@ namespace FlightSimulatorApp.Model
                             }
                             else
                             {
-                                Err = "Timeout";
+                                Err = "Timeout - Altitude";
                             }
                             if (telnetClient.IsSocketAvailableReading())
                             {
                                 tempStr = telnetClient.Read();
                                 Altitude = tempStr;
+                                if (Err.Equals("Timeout - Altitude"))
+                                {
+                                    Err = "";
+                                }
                             }
                             else
                             {
-                                Err = "Timeout";
+                                Err = "Timeout - Altitude";
                             }
 
                             if (telnetClient.IsSocketAvailableWriting())
@@ -454,16 +474,20 @@ namespace FlightSimulatorApp.Model
                             }
                             else
                             {
-                                Err = "Timeout";
+                                Err = "Timeout - InternalRoll";
                             }
                             if (telnetClient.IsSocketAvailableReading())
                             {
                                 tempStr = telnetClient.Read();
                                 InternalRoll = tempStr;
+                                if (Err.Equals("Timeout - InternalRoll"))
+                                {
+                                    Err = "";
+                                }
                             }
                             else
                             {
-                                Err = "Timeout";
+                                Err = "Timeout - InternalRoll";
                             }
 
                             if (telnetClient.IsSocketAvailableWriting())
@@ -472,16 +496,20 @@ namespace FlightSimulatorApp.Model
                             }
                             else
                             {
-                                Err = "Timeout";
+                                Err = "Timeout - InternalPitch";
                             }
                             if (telnetClient.IsSocketAvailableReading())
                             {
                                 tempStr = telnetClient.Read();
                                 InternalPitch = tempStr;
+                                if (Err.Equals("Timeout - InternalPitch"))
+                                {
+                                    Err = "";
+                                }
                             }
                             else
                             {
-                                Err = "Timeout";
+                                Err = "Timeout - InternalPitch";
                             }
 
                             if (telnetClient.IsSocketAvailableWriting())
@@ -490,16 +518,20 @@ namespace FlightSimulatorApp.Model
                             }
                             else
                             {
-                                Err = "Timeout";
+                                Err = "Timeout - Altimeter";
                             }
                             if (telnetClient.IsSocketAvailableReading())
                             {
                                 tempStr = telnetClient.Read();
                                 Altimeter = tempStr;
+                                if (Err.Equals("Timeout - Altimeter"))
+                                {
+                                    Err = "";
+                                }
                             }
                             else
                             {
-                                Err = "Timeout";
+                                Err = "Timeout - Altimeter";
                             }
 
                             if (telnetClient.IsSocketAvailableWriting())
@@ -508,7 +540,7 @@ namespace FlightSimulatorApp.Model
                             }
                             else
                             {
-                                Err = "Timeout";
+                                Err = "Timeout - Longitude";
                             }
                             if (telnetClient.IsSocketAvailableReading())
                             {
@@ -516,11 +548,15 @@ namespace FlightSimulatorApp.Model
                                 if (!(tempStr.Equals("ERR")))
                                 {
                                     Longitude = Double.Parse(tempStr);
+                                    if (Err.Equals("Timeout - Longitude"))
+                                    {
+                                        Err = "";
+                                    }
                                 }
                             }
                             else
                             {
-                                Err = "Timeout";
+                                Err = "Timeout - Longitude";
                             }
 
                             if (telnetClient.IsSocketAvailableWriting())
@@ -529,7 +565,7 @@ namespace FlightSimulatorApp.Model
                             }
                             else
                             {
-                                Err = "Timeout";
+                                Err = "Timeout - Latitude";
                             }
                             if (telnetClient.IsSocketAvailableReading())
                             {
@@ -537,11 +573,15 @@ namespace FlightSimulatorApp.Model
                                 if (!(tempStr.Equals("ERR")))
                                 {
                                     Latitude = Double.Parse(tempStr);
+                                    if (Err.Equals("Timeout - Latitude"))
+                                    {
+                                        Err = "";
+                                    }
                                 }
                             }
                             else
                             {
-                                Err = "Timeout";
+                                Err = "Timeout - Latitude";
                             }
 
                             Location = new Location(Latitude, Longitude);
@@ -552,7 +592,6 @@ namespace FlightSimulatorApp.Model
                         {
                             Err = "ERR";
                             Thread.Sleep(250);
-                            Err = "";
                         }
                     }
                 }).Start();
@@ -568,15 +607,8 @@ namespace FlightSimulatorApp.Model
             {
                 if (telnetClient.IsSocketAvailableWriting())
                 {
-                    try
-                    {
-                        telnetClient.Write(command);
-                        Debug.WriteLine("sent: " + command);
-                    }
-                    catch (Exception)
-                    {
-                        Debug.WriteLine("Writing failed in mySimulatorModel line 566");
-                    }
+                    telnetClient.Write(command);
+                    Debug.WriteLine("sent: " + command);
                 }
                 else
                 {

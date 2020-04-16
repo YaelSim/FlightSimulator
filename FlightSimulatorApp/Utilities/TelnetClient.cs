@@ -125,11 +125,10 @@ namespace FlightSimulatorApp.Utilities
             {
                 mutex.WaitOne();
                 // Encode the data string into a byte array.  
-                //byte[] messageBytesArr = Encoding.ASCII.GetBytes(commandStr + "<EOF>");
                 byte[] messageBytesArr = Encoding.ASCII.GetBytes(commandStr + "\n");
 
                 // Send the data through the socket.  
-                int bytesSent = this.sender.Send(messageBytesArr);
+                int bytesSent = sender.Send(messageBytesArr);
             }
             catch (ArgumentNullException ane)
             {
