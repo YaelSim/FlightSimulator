@@ -16,6 +16,7 @@ namespace FlightSimulatorApp.Model
         private volatile bool stop;
         public event PropertyChangedEventHandler PropertyChanged;
         private volatile bool errorsInIpAndPort = false;
+        private Queue<string> commandsQueue = new Queue<string>();
         //Connection Buttons property as a data member
         private string dm_currStatus = "Disconnected";
         private string dm_error;
@@ -25,14 +26,14 @@ namespace FlightSimulatorApp.Model
         private string dm_port = ConfigurationSettings.AppSettings.Get("Portdefault");
 
         //Dashboard Properties as data members
-        private string dm_heading;
-        private string dm_verticalSpeed;
-        private string dm_groundSpeed;
-        private string dm_airSpeed;
-        private string dm_altitude;
-        private string dm_internalRoll;
-        private string dm_internalPitch;
-        private string dm_altimeter;
+        private string dm_heading = "ERR";
+        private string dm_verticalSpeed = "ERR";
+        private string dm_groundSpeed = "ERR";
+        private string dm_airSpeed = "ERR";
+        private string dm_altitude = "ERR";
+        private string dm_internalRoll = "ERR";
+        private string dm_internalPitch = "ERR";
+        private string dm_altimeter = "ERR";
 
         //Joystick's + Sliders' properties as data members
         private double dm_rudder = 0;
@@ -44,7 +45,7 @@ namespace FlightSimulatorApp.Model
         private double dm_latitude = 32.002644;
         private double dm_longitude = 34.888781;
         private Location dm_location = new Location(32.002644, 34.888781);
-        private Mutex mutex = new Mutex();
+        private readonly Mutex mutex = new Mutex();
         public MySimulatorModel(ITelnet tc)
         {
             this.telnetClient = tc;
@@ -599,6 +600,26 @@ namespace FlightSimulatorApp.Model
                         }
                     }
                 }).Start();
+                new Thread(delegate ()
+                {
+                    while (commandsQueue.Count != 0)
+                    {
+                        if ((!stop) && (!errorsInIpAndPort))
+                        {
+                            if (telnetClient.IsSocketAvailableWriting())
+                            {
+                                mutex.WaitOne();
+                                telnetClient.Write(commandsQueue.Dequeue());
+                                mutex.ReleaseMutex();
+                            }
+                            else
+                            {
+                                Err = "Timeout";
+                            }
+                        }
+                    }
+                    Thread.Sleep(250);
+                }).Start();
             }
         }
         public void NotifyPropertyChanged(string propertyName)
@@ -607,7 +628,7 @@ namespace FlightSimulatorApp.Model
         }
         public void SendCommandToSimulator(string command)
         {
-            new Thread(delegate ()
+            /*new Thread(delegate ()
             {
                 if ((!stop) && (!errorsInIpAndPort))
                 {
@@ -623,7 +644,8 @@ namespace FlightSimulatorApp.Model
                         Err = "Timeout";
                     }
                 }
-            }).Start();
+            }).Start();*/
+            commandsQueue.Enqueue(command);
         }
         public string Err
         {

@@ -47,6 +47,11 @@ namespace FlightSimulatorApp.Utilities
                     Debug.WriteLine("TimeoutException : {0}", te.ToString());
                     throw te;
                 }
+                catch (ObjectDisposedException ode)
+                {
+                    Debug.WriteLine("ODE exception : {0}", ode.ToString());
+                    throw ode;
+                }
                 catch (Exception e)
                 {
                     Debug.WriteLine("Unexpected exception : {0}", e.ToString());
@@ -73,6 +78,10 @@ namespace FlightSimulatorApp.Utilities
             catch (SocketException se)
             {
                 Debug.WriteLine("SocketException : {0}", se.ToString());
+            }
+            catch (ObjectDisposedException ode)
+            {
+                Debug.WriteLine("ODE exception : {0}", ode.ToString());
             }
             catch (Exception e)
             {
@@ -112,6 +121,12 @@ namespace FlightSimulatorApp.Utilities
                 //If any exception was caught, return "0"
                 return "ERR";
             }
+            catch (ObjectDisposedException ode)
+            {
+                Debug.WriteLine("ODE exception : {0}", ode.ToString());
+                mutex.ReleaseMutex();
+                return "ERR";
+            }
             catch (Exception e)
             {
                 Debug.WriteLine("Unexpected exception : {0}", e.ToString());
@@ -139,6 +154,10 @@ namespace FlightSimulatorApp.Utilities
             {
                 Debug.WriteLine("SocketException : {0}", se.ToString());
             }
+            catch (ObjectDisposedException ode)
+            {
+                Debug.WriteLine("ODE exception : {0}", ode.ToString());
+            }
             catch (Exception e)
             {
                 Debug.WriteLine("Unexpected exception : {0}", e.ToString());
@@ -150,13 +169,44 @@ namespace FlightSimulatorApp.Utilities
         }
         public bool IsSocketAvailableReading()
         {
-            int microSeconds = 10000000;
-            return sender.Poll(microSeconds, SelectMode.SelectRead);
+            try
+            {
+                int microSeconds = 10000000;
+                return sender.Poll(microSeconds, SelectMode.SelectRead);
+            } catch (SocketException)
+            {
+                return false;
+            }
+            catch (ObjectDisposedException ode)
+            {
+                Debug.WriteLine("ODE exception : {0}", ode.ToString());
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
         public bool IsSocketAvailableWriting()
         {
-            int microSeconds = 10000000;
-            return sender.Poll(microSeconds, SelectMode.SelectWrite);
+            try
+            {
+                int microSeconds = 10000000;
+                return sender.Poll(microSeconds, SelectMode.SelectWrite);
+            } catch (SocketException)
+            {
+                return false;
+            }
+            catch (ObjectDisposedException ode)
+            {
+                Debug.WriteLine("ODE exception : {0}", ode.ToString());
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
         }
     }
 }

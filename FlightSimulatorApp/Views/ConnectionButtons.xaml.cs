@@ -1,6 +1,7 @@
 ﻿using FlightSimulatorApp.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -53,8 +54,13 @@ namespace FlightSimulatorApp.Views
         {
             if (Application.Current is App)
             {
-                vm.Disconnect();
+                if (!vm.VM_CurrStatus.Equals("Disconnected"))
+                {
+                    vm.Disconnect();
+                }
+                Debug.WriteLine("PASSED DISCONNECT");
                 Application.Current.Shutdown();
+                Debug.WriteLine("PASSED SHUTDOWN");
             }
         }
         public MainViewModel Main_VM { get; internal set; }
