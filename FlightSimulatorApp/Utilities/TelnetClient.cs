@@ -71,21 +71,17 @@ namespace FlightSimulatorApp.Utilities
                 // Release the socket.  
                 sender.Shutdown(SocketShutdown.Both);
             }
-            catch (ArgumentNullException ane)
+            catch (ArgumentNullException)
             {
-               // Debug.WriteLine("ArgumentNullException : {0}", ane.ToString());
             }
-            catch (SocketException se)
+            catch (SocketException)
             {
-               // Debug.WriteLine("SocketException : {0}", se.ToString());
             }
-            catch (ObjectDisposedException ode)
+            catch (ObjectDisposedException)
             {
-               // Debug.WriteLine("ODE exception : {0}", ode.ToString());
             }
-            catch (Exception e)
+            catch (Exception)
             {
-              //  Debug.WriteLine("Unexpected exception : {0}", e.ToString());
             }
             finally
             {
@@ -107,29 +103,25 @@ namespace FlightSimulatorApp.Utilities
                 mutex.ReleaseMutex();
                 return strGotten;
             }
-            catch (ArgumentNullException ane)
+            catch (ArgumentNullException)
             {
-                //Debug.WriteLine("ArgumentNullException : {0}", ane.ToString());
                 mutex.ReleaseMutex();
                 //If any exception was caught, return "0"
                 return "ERR";
             }
-            catch (SocketException se)
+            catch (SocketException)
             {
-                //Debug.WriteLine("SocketException : {0}", se.ToString());
                 mutex.ReleaseMutex();
                 //If any exception was caught, return "0"
                 return "ERR";
             }
-            catch (ObjectDisposedException ode)
+            catch (ObjectDisposedException)
             {
-               // Debug.WriteLine("ODE exception : {0}", ode.ToString());
                 mutex.ReleaseMutex();
                 return "ERR";
             }
-            catch (Exception e)
+            catch (Exception)
             {
-               // Debug.WriteLine("Unexpected exception : {0}", e.ToString());
                 mutex.ReleaseMutex();
                 //If any exception was caught, return "0"
                 return "ERR";
@@ -146,21 +138,17 @@ namespace FlightSimulatorApp.Utilities
                 // Send the data through the socket.  
                 int bytesSent = sender.Send(messageBytesArr);
             }
-            catch (ArgumentNullException ane)
+            catch (ArgumentNullException)
             {
-               // Debug.WriteLine("ArgumentNullException : {0}", ane.ToString());
             }
-            catch (SocketException se)
+            catch (SocketException)
             {
-               // Debug.WriteLine("SocketException : {0}", se.ToString());
             }
-            catch (ObjectDisposedException ode)
+            catch (ObjectDisposedException)
             {
-               // Debug.WriteLine("ODE exception : {0}", ode.ToString());
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                //Debug.WriteLine("Unexpected exception : {0}", e.ToString());
             }
             finally
             {
@@ -177,9 +165,8 @@ namespace FlightSimulatorApp.Utilities
             {
                 return false;
             }
-            catch (ObjectDisposedException ode)
+            catch (ObjectDisposedException)
             {
-               // Debug.WriteLine("ODE exception : {0}", ode.ToString());
                 return false;
             }
             catch (Exception)
@@ -197,9 +184,8 @@ namespace FlightSimulatorApp.Utilities
             {
                 return false;
             }
-            catch (ObjectDisposedException ode)
+            catch (ObjectDisposedException)
             {
-                //Debug.WriteLine("ODE exception : {0}", ode.ToString());
                 return false;
             }
             catch (Exception)
