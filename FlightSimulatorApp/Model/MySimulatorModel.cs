@@ -44,6 +44,7 @@ namespace FlightSimulatorApp.Model
         private double dm_latitude = 32.002644;
         private double dm_longitude = 34.888781;
         private Location dm_location = new Location(32.002644, 34.888781);
+        private Mutex mutex = new Mutex();
         public MySimulatorModel(ITelnet tc)
         {
             this.telnetClient = tc;
@@ -355,6 +356,7 @@ namespace FlightSimulatorApp.Model
                 {
                     while (!stop)
                     {
+                        mutex.WaitOne();
                         try
                         {
                             string tempStr;
@@ -585,11 +587,12 @@ namespace FlightSimulatorApp.Model
                             }
 
                             Location = new Location(Latitude, Longitude);
-
+                            mutex.ReleaseMutex();
                             Thread.Sleep(250); //SLEEP FOR 250 MS - that determines we will ask for details 4 times in a sec.
                     }
                         catch (Exception)
                         {
+                            mutex.ReleaseMutex();
                             Err = "ERR";
                             Thread.Sleep(250);
                         }
@@ -607,7 +610,9 @@ namespace FlightSimulatorApp.Model
             {
                 if (telnetClient.IsSocketAvailableWriting())
                 {
+                    mutex.WaitOne();
                     telnetClient.Write(command);
+                    mutex.ReleaseMutex();
                     Debug.WriteLine("sent: " + command);
                 }
                 else

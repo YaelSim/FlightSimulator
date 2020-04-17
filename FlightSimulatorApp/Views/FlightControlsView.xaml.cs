@@ -19,7 +19,7 @@ namespace FlightSimulatorApp.Views
     /// </summary>
     public partial class FlightControlsView : UserControl
     {
-        private FlightControlsViewModel vm;
+        private readonly FlightControlsViewModel vm;
         public FlightControlsView()
         {
             InitializeComponent();
