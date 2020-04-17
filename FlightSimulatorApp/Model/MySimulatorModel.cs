@@ -16,7 +16,7 @@ namespace FlightSimulatorApp.Model
         private volatile bool stop;
         public event PropertyChangedEventHandler PropertyChanged;
         private volatile bool errorsInIpAndPort = false;
-        private Queue<string> commandsQueue = new Queue<string>();
+        private readonly Queue<string> commandsQueue = new Queue<string>();
         //Connection Buttons property as a data member
         private string dm_currStatus = "Disconnected";
         private string dm_error;
@@ -341,13 +341,21 @@ namespace FlightSimulatorApp.Model
         }
         public void Disconnect()
         {
-            if (!errorsInIpAndPort)
+            try
             {
-                stop = true;
-                telnetClient.Disconnect();
+                if (!errorsInIpAndPort)
+                {
+                    stop = true;
+                    telnetClient.Disconnect();
+                    CurrStatus = "Disconnected";
+                    Err = "";
+                }
+            } catch (Exception)
+            {
                 CurrStatus = "Disconnected";
                 Err = "";
             }
+            
         }
         public void Start()
         {
@@ -590,7 +598,7 @@ namespace FlightSimulatorApp.Model
                             Location = new Location(Latitude, Longitude);
                             mutex.ReleaseMutex();
                             Thread.Sleep(250); //SLEEP FOR 250 MS - that determines we will ask for details 4 times in a sec.
-                    }
+                        }
                         catch (Exception)
                         {
                             mutex.ReleaseMutex();
@@ -604,18 +612,25 @@ namespace FlightSimulatorApp.Model
                 {
                     while (commandsQueue.Count != 0)
                     {
-                        if ((!stop) && (!errorsInIpAndPort))
+                        try
                         {
-                            if (telnetClient.IsSocketAvailableWriting())
+                            if ((!stop) && (!errorsInIpAndPort))
                             {
-                                mutex.WaitOne();
-                                telnetClient.Write(commandsQueue.Dequeue());
-                                mutex.ReleaseMutex();
+                                if (telnetClient.IsSocketAvailableWriting())
+                                {
+                                    mutex.WaitOne();
+                                    telnetClient.Write(commandsQueue.Dequeue());
+                                    mutex.ReleaseMutex();
+                                }
+                                else
+                                {
+                                    Err = "Timeout";
+                                }
                             }
-                            else
-                            {
-                                Err = "Timeout";
-                            }
+                        }
+                        catch (Exception)
+                        {
+                            mutex.ReleaseMutex();
                         }
                     }
                     Thread.Sleep(250);
@@ -628,23 +643,6 @@ namespace FlightSimulatorApp.Model
         }
         public void SendCommandToSimulator(string command)
         {
-            /*new Thread(delegate ()
-            {
-                if ((!stop) && (!errorsInIpAndPort))
-                {
-                    if (telnetClient.IsSocketAvailableWriting())
-                    {
-                        mutex.WaitOne();
-                        telnetClient.Write(command);
-                        mutex.ReleaseMutex();
-                        Debug.WriteLine("sent: " + command);
-                    }
-                    else
-                    {
-                        Err = "Timeout";
-                    }
-                }
-            }).Start();*/
             commandsQueue.Enqueue(command);
         }
         public string Err

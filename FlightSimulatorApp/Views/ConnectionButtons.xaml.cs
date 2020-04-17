@@ -58,9 +58,7 @@ namespace FlightSimulatorApp.Views
                 {
                     vm.Disconnect();
                 }
-                Debug.WriteLine("PASSED DISCONNECT");
                 Application.Current.Shutdown();
-                Debug.WriteLine("PASSED SHUTDOWN");
             }
         }
         public MainViewModel Main_VM { get; internal set; }
