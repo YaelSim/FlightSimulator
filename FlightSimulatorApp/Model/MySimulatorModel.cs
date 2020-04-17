@@ -595,6 +595,7 @@ namespace FlightSimulatorApp.Model
                             mutex.ReleaseMutex();
                             Err = "ERR";
                             Thread.Sleep(250);
+                            Err = "";
                         }
                     }
                 }).Start();
@@ -606,20 +607,23 @@ namespace FlightSimulatorApp.Model
         }
         public void SendCommandToSimulator(string command)
         {
-            if ((!stop) && (!errorsInIpAndPort))
+            new Thread(delegate ()
             {
-                if (telnetClient.IsSocketAvailableWriting())
+                if ((!stop) && (!errorsInIpAndPort))
                 {
-                    mutex.WaitOne();
-                    telnetClient.Write(command);
-                    mutex.ReleaseMutex();
-                    Debug.WriteLine("sent: " + command);
+                    if (telnetClient.IsSocketAvailableWriting())
+                    {
+                        mutex.WaitOne();
+                        telnetClient.Write(command);
+                        mutex.ReleaseMutex();
+                        Debug.WriteLine("sent: " + command);
+                    }
+                    else
+                    {
+                        Err = "Timeout";
+                    }
                 }
-                else
-                {
-                    Err = "Timeout";
-                }
-            }
+            }).Start();
         }
         public string Err
         {
